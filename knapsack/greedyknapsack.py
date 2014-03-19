@@ -17,6 +17,7 @@ for e in f:
         knapsack_capacity = int( line[1] )
     new_e = string.rstrip( e )
     line = new_e.split( " " )
+    
 #
 # Data structure for l is [ value, weight, line number, flag ]
 # flag = 1 when the item is placed in the knapsack
@@ -31,12 +32,35 @@ for e in f:
     l = []          # need to clear the list after 
     i += 1
 
+f.close()
 items_l = ll[ 1: ]  # make a list that contains a list for each item
 
 print items_l
-        
-# l.sort(key = lambda what: what[0][1]*100./what[0][0])
 
 items_l.sort( key = lambda what: float( what[ 0 ]/what[ 1 ] ) )
 
 print items_l
+
+weight, value  = 0, 0
+for ele in items_l:
+    value += ele[ 0 ]
+    weight += ele[ 1 ]
+    ele.pop()
+    ele.append( 1 )
+    if( weight > knapsack_capacity ):  # back out item if does not fit
+        value -= ele[ 0 ]              # this tries all elements
+        weight -= ele[ 1 ]
+        ele.pop()
+        ele.append( 0 )
+
+print '\nweight is ', weight
+print 'value is ', value
+print 'items_l is ', items_l
+    
+items_l.sort( key = lambda what: what[ 2 ] )
+print 'items_l in original order is ', items_l
+
+print value, 0
+
+for e in items_l:
+    print e[3],  # cute python trick to print on the same line w space
