@@ -1,6 +1,13 @@
 import string
+import os
 
-path = 'C:/Users/andyd/Documents/GitHub/Coursera_Discrete_Optimization/knapsack/data/ks_4_0'
+# Set the path to the file name depending if I am on my work or home computer
+if os.getenv('COMPUTERNAME') == 'XSJANDYD3W7': # work laptop name detected
+    path = "C:/Users/andyd/Documents/GitHub/Coursera_Discrete_Optimization/knapsack/data/ks_100_1"
+else:                                          # home computer otherwise
+    path = "C:/Users/Dad/Documents/GitHub/Coursera_Discrete_Optimization/knapsack/data/ks_100_1"
+
+#path = 'C:/Users/andyd/Documents/GitHub/Coursera_Discrete_Optimization/knapsack/data/ks_4_0'
 f = open( path, 'r' )
 
 ll, l = [], []
@@ -35,11 +42,11 @@ for e in f:
 f.close()
 items_l = ll[ 1: ]  # make a list that contains a list for each item
 
-print items_l
+#print items_l
 
 items_l.sort( key = lambda what: float( what[ 0 ]/what[ 1 ] ) )
 
-print items_l
+#print items_l
 
 weight, value  = 0, 0
 for ele in items_l:
@@ -52,13 +59,13 @@ for ele in items_l:
         weight -= ele[ 1 ]
         ele.pop()
         ele.append( 0 )
-
+'''
 print '\nweight is ', weight
 print 'value is ', value
 print 'items_l is ', items_l
-    
+'''    
 items_l.sort( key = lambda what: what[ 2 ] )
-print 'items_l in original order is ', items_l
+#print 'items_l in original order is ', items_l
 
 print value, 0
 
