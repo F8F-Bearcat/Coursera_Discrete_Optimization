@@ -28,8 +28,8 @@ def make_complete_graph(num_nodes):
 def compute_in_degrees(digraph):
     '''
     Input: a dictionary representing a directed graph. Nodes are keys, edges are values in a set
-    Output: a dictionary of nodes as keys with values equal to a set including the directed edges
-    pointing at that node.
+    Output: a dictionary of nodes as keys with values equal to the sum of the edges pointing to
+    that node
     '''
     if len(digraph) == 0:
         return {}
@@ -64,4 +64,5 @@ EX_GRAPH0 = {0:set([1, 2]), 1:set([]), 2:set([])}
 EX_GRAPH1 = {0:set([1, 4, 5]), 1:set([2, 6]), 2:set([3]), 3:set([0]), 4:set([1]), 5:set([2]), 6:set([])}
 EX_GRAPH2 = {0: set([1, 4, 5]), 1: set([2, 6]), 2: set([3, 7]), 3: set([7]), 4: set([1]), 5: set([2]), 6: set([]), 7: set([3]), 8: set([1, 2]), 9: set([0, 3, 4, 5, 6, 7])}
 
-
+test_d = compute_in_degrees(EX_GRAPH2)
+print test_d
