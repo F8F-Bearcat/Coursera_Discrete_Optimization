@@ -6,7 +6,7 @@ t = np.arange(0.01, 20.0, 0.01)
 
 # log x and y axis
 #plt.loglog(t, 20*np.exp(-t/10.0), basex=10)
-plt.loglog([1,2,3,10,12],[.5, 5, 50, 500, 520], 'r--', basex=10)  # 'ro' can be removed for default blue line
+plt.loglog([1,2,3,10,12],[.5, 5, 50, 500, 520], 'ro', basex=10)  # 'ro' can be removed for default blue line
 plt.grid(True)
 plt.xlabel('In-Degree')
 plt.ylabel('Normalized')
