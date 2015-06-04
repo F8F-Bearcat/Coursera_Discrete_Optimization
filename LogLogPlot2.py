@@ -8,8 +8,8 @@ t = np.arange(0.01, 20.0, 0.01)
 #plt.loglog(t, 20*np.exp(-t/10.0), basex=10)
 plt.loglog([1,2,3,10,12],[.5, 5, 50, 500, 520], 'ro', basex=10)  # 'ro' can be removed for default blue line
 plt.grid(True)
-plt.xlabel('In-Degree')
-plt.ylabel('Normalized')
-plt.title('loglog base 10 on X & Y axis')
+plt.xlabel('In-Degree (Log base 10)')
+plt.ylabel('Normalized (Log base 10)')
+plt.title('Citation Graph In-Degree Distribution')
 
 plt.show()
