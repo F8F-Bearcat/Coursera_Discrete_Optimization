@@ -44,6 +44,6 @@ def load_graph(graph_url):
 
 citation_graph = load_graph(CITATION_URL)
 
-pickle.dump(citation_graph, open("C:/Users/andyd/Desktop/citations.p", "wb"))
+pickle.dump(citation_graph, open("C:/Users/Dad/Desktop/citations.p", "wb"))
 
 
