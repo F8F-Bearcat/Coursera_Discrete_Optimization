@@ -27,7 +27,8 @@ def make_complete_graph(num_nodes):
 
 def compute_in_degrees(digraph):
     '''
-    Input: a dictionary representing a directed graph. Nodes are keys, edges are values in a set
+    Input: a dictionary representing a directed graph. Nodes are keys, directed edges are values
+    in a set representing nodes that are pointed to by the node that is the key
     Output: a dictionary of nodes as keys with values equal to the sum of the edges pointing to
     that node
     '''
