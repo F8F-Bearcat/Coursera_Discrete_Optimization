@@ -5,8 +5,11 @@ Edge (i,j) is an edge going from node i to node j, head of edge at node j
 import random
 def make_rand_digraph(num_nodes, prob):
     '''
+    Make a random directed graph
 	Input: number of nodes, probability that an edge exists
-	Output: A dictionary with keys as node numbers and values as sets of edges connected to that node
+	Output: A dictionary with keys as node numbers and values as sets of nodes pointed
+    to by the key node
+    Edge (i,j) is an edge going from node i to node j, head of edge at node j
 	'''
     rand_graph_d = {}
     range_i = range(num_nodes)
@@ -25,4 +28,4 @@ def make_rand_digraph(num_nodes, prob):
 
     return rand_graph_d
 
-print make_rand_digraph(4, .5)
+print make_rand_digraph(10, .5)
