@@ -93,27 +93,27 @@ def in_degree_distribution(digraph):
 
     return invert_and_count_d
 
-digraph =  make_rand_digraph(10, .5)
-print digraph
+digraph =  make_rand_digraph(1000, .5)
+#print digraph
 in_degree = compute_in_degrees(digraph)
-print in_degree
+#print in_degree
 distribution = in_degree_distribution(digraph)
-print distribution
+#print distribution
 
 xlist = []
 for element in distribution:
     xlist.append(element)
-print 'xlist is ', xlist
+#print 'xlist is ', xlist
 
 ylist = []
 for element in distribution:
     ylist.append(distribution[element])
-print 'ylist is ', ylist
+#print 'ylist is ', ylist
 
 total_y = float(sum(ylist))
 
 ylist[:] = [x / total_y for x in ylist]
-print 'ylist is ', ylist
+#print 'ylist is ', ylist
 
 
 
