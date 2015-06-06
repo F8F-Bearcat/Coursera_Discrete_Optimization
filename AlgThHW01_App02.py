@@ -5,6 +5,7 @@ Edge (i,j) is an edge going from node i to node j, head of edge at node j
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 def make_rand_digraph(num_nodes, prob):
     '''
@@ -93,39 +94,43 @@ def in_degree_distribution(digraph):
 
     return invert_and_count_d
 
-digraph =  make_rand_digraph(1000, .5)
+def plot_distribution(distribution, title):
+    '''
+    Input: a dictionary with keys as in-degree count and values as the number of nodes 
+    with that in-degree count, and a string title that will be attached to the plot created
+    Output: a matplotlib loglog plot of the distribution
+    '''
+    xlist = []
+    for element in distribution:
+        xlist.append(element)
+
+    ylist = []
+    for element in distribution:
+        ylist.append(distribution[element])
+
+    total_y = float(sum(ylist))
+    ylist[:] = [x / total_y for x in ylist]
+
+    plt.loglog(xlist, ylist, 'ro', basex=10)  # len(xlist) needs to equal len(ylist)
+    #plt.loglog([1,2,3,10,12],[.5, 5, 50, 500, 520], 'ro', basex=10)  # 'ro' can be removed for default blue line
+    #plt.grid(True)
+    plt.grid(b=True, which='major', color='b', linestyle='-')
+    plt.grid(b=True, which='minor', color='r', linestyle='--')
+    plt.xlabel('In-Degree (Log base 10)')
+    plt.ylabel('Normalized (Log base 10)')
+    plt.title(title)
+    plt.show()
+    pass    
+
+digraph =  make_rand_digraph(100, .5)
 #print digraph
 in_degree = compute_in_degrees(digraph)
 #print in_degree
 distribution = in_degree_distribution(digraph)
 #print distribution
+plot_distribution(distribution, 'Citation Graph In-Degree Distribution' )
 
-xlist = []
-for element in distribution:
-    xlist.append(element)
-#print 'xlist is ', xlist
-
-ylist = []
-for element in distribution:
-    ylist.append(distribution[element])
-#print 'ylist is ', ylist
-
-total_y = float(sum(ylist))
-
-ylist[:] = [x / total_y for x in ylist]
-#print 'ylist is ', ylist
-
-
-
-
-
-plt.loglog(xlist, ylist, 'ro', basex=10)  # len(xlist) needs to equal len(ylist)
-#plt.loglog([1,2,3,10,12],[.5, 5, 50, 500, 520], 'ro', basex=10)  # 'ro' can be removed for default blue line
-#plt.grid(True)
-plt.grid(b=True, which='major', color='b', linestyle='-')
-plt.grid(b=True, which='minor', color='r', linestyle='--')
-plt.xlabel('In-Degree (Log base 10)')
-plt.ylabel('Normalized (Log base 10)')
-plt.title('Citation Graph In-Degree Distribution')
-
-plt.show()
+file_name_string = 'C:/Users/Dad/Documents/GitHub/Coursera_Discrete_Optimization/citations.p'
+file_h = open(file_name_string, 'r')
+citation_graph = pickle.load(file_h)
+print citation_graph[1001]
