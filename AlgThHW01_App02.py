@@ -6,6 +6,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
+import time
 
 def make_rand_digraph(num_nodes, prob):
     '''
@@ -115,22 +116,30 @@ def plot_distribution(distribution, title):
     #plt.loglog([1,2,3,10,12],[.5, 5, 50, 500, 520], 'ro', basex=10)  # 'ro' can be removed for default blue line
     #plt.grid(True)
     plt.grid(b=True, which='major', color='b', linestyle='-')
-    plt.grid(b=True, which='minor', color='r', linestyle='--')
+    #plt.grid(b=True, which='minor', color='r', linestyle='--')
     plt.xlabel('In-Degree (Log base 10)')
     plt.ylabel('Normalized (Log base 10)')
     plt.title(title)
     plt.show()
     pass    
 
-digraph =  make_rand_digraph(100, .5)
+start_time = time.time()
+file_name_string = 'C:/Users/Dad/Documents/GitHub/Coursera_Discrete_Optimization/citations.p'
+file_h = open(file_name_string, 'r')
+citation_graph = pickle.load(file_h)
+#print citation_graph[1001]
+file_h.close()
+
+
+digraph =  make_rand_digraph(1000, .5)
 #print digraph
 in_degree = compute_in_degrees(digraph)
 #print in_degree
 distribution = in_degree_distribution(digraph)
-#print distribution
-plot_distribution(distribution, 'Citation Graph In-Degree Distribution' )
 
-file_name_string = 'C:/Users/Dad/Documents/GitHub/Coursera_Discrete_Optimization/citations.p'
-file_h = open(file_name_string, 'r')
-citation_graph = pickle.load(file_h)
-print citation_graph[1001]
+end_time = time.time()
+print 'Run time is ', end_time - start_time, ' seconds'
+
+#print distribution
+plot_distribution(distribution, 'Random Graph (ER Algorithm) In-Degree Distribution' )
+
