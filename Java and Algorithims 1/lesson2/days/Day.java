@@ -211,9 +211,19 @@ public class Day
         if (y < GREGORIAN_START_YEAR) return true;
         return (y % 100 != 0) || (y % 400 == 0);
     }
+
+
+ public static void main(String[] args)
+    {
+        System.out.println("Hello, World!");
+        Day newday = new Day(1964, 11, 28);
+        System.out.println(newday.getYear());
+        newday.addDays(228);
+        System.out.println(newday.getYear());
+        System.out.println(newday.toString());
+        
+ }
 }
-
-
 
 
 

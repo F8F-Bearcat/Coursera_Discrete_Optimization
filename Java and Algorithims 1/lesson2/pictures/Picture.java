@@ -19,6 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+//HIDE
+
+
 /**
  * A picture from an image file.
  */
@@ -205,7 +208,7 @@ public class Picture
             {
                 int rgb = image.getRGB(j, i);
                 // Use NTSC/PAL algorithm to convert RGB to gray level
-                grayLevels[i][j] = (int)(0.2989 * ((rgb >> 16) & 0xFF) + 0.5866 * ((rgb >> 8) & 0xFF) + 0.1144 * (rgb & 0xFF));	       
+                grayLevels[i][j] = (int)(0.2989 * ((rgb >> 16) & 0xFF) + 0.5866 * ((rgb >> 8) & 0xFF) + 0.1144 * (rgb & 0xFF));        
             }
         return grayLevels;
     }
@@ -494,7 +497,16 @@ public class Picture
             {
                 System.err.println("Was unable to save the image to " + fileName);
             }
-            g.dispose();    	
+            g.dispose();     
         }
     }
+     public static void main(String[] args)
+    {
+        System.out.println("Hello, World!");
+        Picture picture = new Picture();
+        picture.pick();
+        System.out.println(picture.pixels());
+        picture.translate(100, 200);
+        
+ }
 }
