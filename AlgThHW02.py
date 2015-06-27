@@ -43,6 +43,19 @@ def cc_visited(ugraph):
         remaining_nodes -= visited
     return conn_comp
 
+def largest_cc_size(ugraph):
+    '''
+    Input: undirected graph
+    Output: an integer representing the size of the largest connected component in ugraph
+    '''
+    candidate_list = cc_visited(ugraph)
+    max_cc_size = 0
+
+    for item in candidate_list:
+        if len(item) > max_cc_size:
+            max_cc_size = len(item)
+    return max_cc_size
+
 EX_GRAPH0 = {0:set([1, 2]), 1:set([]), 2:set([])}
 EX_GRAPH1 = {0:set([1, 4, 5]), 1:set([2, 6]), 2:set([3]), 3:set([0]), 4:set([1]), 5:set([2]), 6:set([])}
 EX_GRAPH2 = {0:set([1, 4, 5]), 1:set([2, 6]), 2:set([3, 7]), 3:set([7]), 4:set([1]), 5:set([2]), 6:set([]), 7:set([3]), 8:set([1, 2]), 9:set([0, 3, 4, 5, 6, 7])}
@@ -50,4 +63,4 @@ EX_GRAPH3 = {}
 EX_GRAPH4 = {0:set([]), 1:set([]), 2:set([]), 3:set([])}
 EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([4]), 6:set([7]), 7:set([6])}
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
-print cc_visited(EX_GRAPH6)
+print largest_cc_size(EX_GRAPH6)
