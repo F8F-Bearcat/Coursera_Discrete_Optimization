@@ -63,29 +63,31 @@ def compute_resilience(ugraph, attack_order):
             the first entry in the list is the size of the original largest connected component
     '''
     #print 'initial ugraph', ugraph
+    new_attack = list(attack_order)             # input parameters cannot be mutated per the grader 
+    new_ugraph = ugraph.copy()                  # so make clean copies of ugraph dict and attack_order list
     under_attack_largest_cc = []                # list to hold largest cc as nodes removed
-    if ugraph == {}:                            # cover the empty graph input case
+    if new_ugraph == {}:                            # cover the empty graph input case
         return [0]
-    largest = largest_cc_size(ugraph)           # save the value of largest cc prior to node removal
+    largest = largest_cc_size(new_ugraph)           # save the value of largest cc prior to node removal
     under_attack_largest_cc.append(largest)
-    #print 'ugraph after first largest query', ugraph
+    #print 'new_ugraph after first largest query', new_ugraph
 
-    while len(attack_order) > 0:
-        #print 'attack_order is', attack_order
-        delete_node = attack_order.pop(0)       # remove nodes to attack from the left
+    while len(new_attack) > 0:
+        #print 'new_attack is', new_attack
+        delete_node = new_attack.pop(0)       # remove nodes to attack from the left
         #print 'delete_node is ', delete_node
-        delete_edges = ugraph[delete_node]
-        #print 'ugraph after delete_node', ugraph
-        if delete_node in ugraph:               # remove node from graph
-            ugraph.pop(delete_node, None)       # using pop instead of del provides atomic operation
-        #print 'ugraph after pop of delete_node', ugraph
+        delete_edges = new_ugraph[delete_node]
+        #print 'new_ugraph after delete_node', new_ugraph
+        if delete_node in new_ugraph:               # remove node from graph
+            new_ugraph.pop(delete_node, None)       # using pop instead of del provides atomic operation
+        #print 'new_ugraph after pop of delete_node', new_ugraph
         for ele in delete_edges:                # remove all edges from removed node
-            temp_set = ugraph[ele]
+            temp_set = new_ugraph[ele]
             #print 'temp_set is ', temp_set
             temp_set.remove(delete_node)        # if statement needed? To make sure del node in set
-            ugraph[ele] = temp_set
-        #print 'ugraph is ', ugraph
-        largest_left = largest_cc_size(ugraph)
+            new_ugraph[ele] = temp_set
+        #print 'new_ugraph is ', new_ugraph
+        largest_left = largest_cc_size(new_ugraph)
         under_attack_largest_cc.append(largest_left)
 
     return under_attack_largest_cc
@@ -97,4 +99,23 @@ EX_GRAPH3 = {}
 EX_GRAPH4 = {0:set([]), 1:set([]), 2:set([]), 3:set([])}
 EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([4]), 6:set([7]), 7:set([6])}
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
-print compute_resilience(EX_GRAPH6, [0, 1, 2])
+GRAPH0 = {0: set([1]),
+          1: set([0, 2]),
+          2: set([1, 3]),
+          3: set([2])}
+
+GRAPH1 = {0: set([1, 2, 3, 4]),
+          1: set([0, 2, 3, 4]),
+          2: set([0, 1, 3, 4]),
+          3: set([0, 1, 2, 4]),
+          4: set([0, 1, 2, 3])}
+
+GRAPH2 = {1: set([2, 4, 6, 8]),
+          2: set([1, 3, 5, 7]),
+          3: set([2, 4, 6, 8]),
+          4: set([1, 3, 5, 7]),
+          5: set([2, 4, 6, 8]),
+          6: set([1, 3, 5, 7]),
+          7: set([2, 4, 6, 8]),
+          8: set([1, 3, 5, 7])}
+print compute_resilience(GRAPH0, [1, 2])
