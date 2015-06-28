@@ -11,6 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import deque
 import time
+import pickle
 
 class DPATrial:
     """
@@ -325,6 +326,38 @@ def compute_resilience(ugraph, attack_order):
 
     return under_attack_largest_cc
 
+def make_er_graph(num_nodes, p):
+    '''
+    Input:  a count of the number of nodes in the desired make_er_graph graph
+            p is the probability that an edge between two nodes will exist
+
+    Output: a dictionary representation of the undirected er graph, with the node
+    of the graph as the key, and the value returned a set of all the edges
+    originating from that node.
+    '''
+
+    complete_dict = {}
+
+    if num_nodes == 0:
+        return complete_dict
+
+    node_set = set(range(num_nodes))
+
+    for item in node_set:
+        complete_dict[item] = set([])  # initialize graph to all empty sets for edges
+
+    for element in node_set:
+        gen_edge = node_set - set([element])
+        for actor in gen_edge:
+            random_unit_interval = random.random()  # generates float between 0 and 1
+            if random_unit_interval < p:            # p is one half of probability to gen edge
+                complete_dict[element] |= set([actor])  # this is due to undirected nature
+                complete_dict[actor] |= set([element])  # if an edge is generated it links 2 nodes
+                # if an edge is generated twice in this process, the set union function will
+                # collapse the duplicate edge into the previous edge
+
+    return complete_dict
+
 
 # create output graph, initialize as complete, will track graph in helper object
 start_time = time.time()
@@ -332,7 +365,7 @@ upa_graph = make_rand_digraph(2, 1)
 
 # initialize helper object
 helper_g = UPATrial(2)
-add_nodes = range(2, 5)
+add_nodes = range(2, 1239)
 for atom in add_nodes:
     upa_graph[atom] = set([])       # add all nodes and initialize to empty set
 
@@ -344,24 +377,45 @@ for item in add_nodes:
         upa_graph[iota] = upa_graph[iota] | set([item])
                                     # need to insert edges in both directions
 
-print 'upa_graph is ', upa_graph
+#print 'upa_graph is ', upa_graph
 
 random_node_list = random_order(upa_graph)
 print 'random_node_list is ', random_node_list
 
 UPA_values = compute_resilience(upa_graph, random_node_list)
 
+pick = open('C:\Users\Dad\Desktop\er_graph.p', 'rb')
+er_graph = pickle.load(pick)
+pick.close()
+
+random_node_list = random_order(er_graph)
+print 'random_node_list is ', random_node_list
+
+ER_values = compute_resilience(er_graph, random_node_list)
+
+pick = open('C:\Users\Dad\Desktop\provided_graph.p', 'rb')
+provided_graph = pickle.load(pick)
+pick.close()
+
+random_node_list = random_order(provided_graph)
+print 'random_node_list is ', random_node_list
+
+Provided_values = compute_resilience(provided_graph, random_node_list)
+
 #print random_node_list
 
 xvals = range(len(random_node_list) + 1 )
 yvals1 = UPA_values
+yvals2 = ER_values
+yvals3 = Provided_values
 #yvals2 = [1, 4, 9, 16, 25]
 
-print 'xvals are ', xvals
-print 'yvals1 are ', yvals1
+#print 'xvals are ', xvals
+#print 'yvals1 are ', yvals1
 
-plt.plot(xvals, yvals1, '-b', label='UPA Graph')
-#plt.plot(xvals, yvals2, '-r', label='quadratic')
+plt.plot(xvals, yvals1, '-b', label='UPA Graph, m = 2')
+plt.plot(xvals, yvals2, '-r', label='ER Graph, p = .002')
+plt.plot(xvals, yvals3, '-g', label='Provided Computer Network')
 plt.legend(loc='upper right')
 plt.show()
 '''

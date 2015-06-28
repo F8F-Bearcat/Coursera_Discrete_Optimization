@@ -7,6 +7,7 @@ import urllib2
 import random
 import time
 import math
+import pickle
 
 # CodeSkulptor import
 #import simpleplot
@@ -98,5 +99,9 @@ def load_graph(graph_url):
     return answer_graph
 
 provided_graph = load_graph(NETWORK_URL)
+
+pick = open('C:\Users\Dad\Desktop\provided_graph.p', 'wb')
+pickle.dump(provided_graph, pick)
+pick.close()
 
 print provided_graph
