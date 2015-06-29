@@ -126,8 +126,63 @@ def targeted_order(ugraph):
         order.append(max_degree_node)
     return order
 
-    # create output graph, initialize as complete, will track graph in helper object
+def fast_targeted_order(ugraph):
+    '''
+    Input is an undirected graph
+    Output is an ordered list of nodes in decreasing order of their degrees
+    '''
+    if ugraph == {}:
+        return []
+    new_ugraph = ugraph.copy()      # avoid mutating the input as nodes are removed
+    node_count = len(ugraph)
+    init = range(node_count)
+    degree_sets = []
+    for item in init:               # initialize list to all empty set entries
+        degree_sets.append(set([]))
+    for item in init:
+        dee = len(ugraph[item])          # find the degree of each node and add to corresponding set
+        degree_sets[dee] = degree_sets[dee] | set([item])
 
+    target_order = []
+    i = 0
+
+    kay = init[node_count-1]
+    while kay > -1:
+        if len(degree_sets[kay]) > 0:                       # for non empty sets there are nodes of degree k
+            ewe = random.choice(list(degree_sets[kay]))     # pick one of the nodes of degree k
+            degree_sets[kay] = degree_sets[kay] - set([ewe])  # then remove that node
+            neighbors_of_ewe = ugraph[ewe]                  # find all the neighbors of kay and decrement degree
+            for element in neighbors_of_ewe:
+                new_dee = len(ugraph[element])
+                degree_sets[new_dee] -= set([element])      # remove element from degree d
+                degree_sets[new_dee-1] |= set([element])    # add element to set of degree d-1, shifts element
+            target_order.append(ewe)
+            i += 1                                          # using append means variable i is not needed
+# now remove node ewe from the graph along with associated edges...
+            delete_node = ewe
+            delete_edges = new_ugraph[delete_node]
+            if delete_node in new_ugraph:           # remove node from graph
+                new_ugraph.pop(delete_node, None)   # using pop instead of del provides atomic operation
+            for ele in delete_edges:                # remove all edges from removed node
+                temp_set = new_ugraph[ele]
+                temp_set.remove(delete_node)        # if statement needed? To make sure del node in set
+                new_ugraph[ele] = temp_set
+        kay -= 1
+
+    return target_order
+
+EX_GRAPH0 = {0:set([1, 2]), 1:set([0]), 2:set([0])}
+EX_GRAPH1 = {0:set([1, 3, 4, 5]), 1:set([0, 2, 4, 6]), 2:set([1, 3, 5]), 3:set([0, 2]), 4:set([0, 1]), 5:set([0, 2]), 6:set([1])}
+EX_GRAPH2 = {0:set([1, 4, 5, 9]), 1:set([0, 2, 4, 6, 8]), 2:set([1, 3, 5, 7, 8]), 3:set([2, 7, 9]), 4:set([0, 1, 9]), 5:set([0, 2, 9]), 6:set([1, 9]), 7:set([2, 3, 9]), 8:set([1, 2]), 9:set([0, 3, 4, 5, 6, 7])}
+EX_GRAPH3 = {}
+EX_GRAPH4 = {0:set([]), 1:set([]), 2:set([]), 3:set([])}
+EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([4]), 6:set([7]), 7:set([6])}
+EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
+
+print fast_targeted_order(EX_GRAPH3)
+
+    # create output graph, initialize as complete, will track graph in helper object
+'''
 loop_count = range( 10, 1000, 10)
 targeted_order_times = []
 for element in loop_count:
@@ -175,9 +230,10 @@ plt.plot(xvals, yvals1, '-b', label='Targeted Order')
 plt.legend(loc='upper right')
 plt.ylabel('Seconds')
 plt.xlabel('Number of Nodes')
-plt.title('Algorithm Run Time')
+plt.title('Algorithm Run Time on Desktop Python')
 plt.show()
 
 pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\Targeted_order_times.p', 'wb')
 pickle.dump(targeted_order_times, pick)
 pick.close()
+'''
