@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from collections import deque
 import time
 import pickle
+import cProfile
 
 class UPATrial:
     """
@@ -133,16 +134,23 @@ def fast_targeted_order(ugraph):
     '''
     if ugraph == {}:
         return []
-    new_ugraph = ugraph.copy()      # avoid mutating the input as nodes are removed
-    node_count = len(ugraph)
+    #print 'ugraph is ', ugraph
+    #print ' '
+    # Note!! ugraph.copy() did not work, was mutated did not work !!!  I don't know why
+    # switched over to the graph copy lines from the provided code
+    # that worked, also don't know why...
+    new_ugraph = copy_graph(ugraph)      # avoid mutating the input as nodes are removed
+    node_count = len(new_ugraph)
     init = range(node_count)
     degree_sets = []
     for item in init:               # initialize list to all empty set entries
         degree_sets.append(set([]))
+        #print 'internal loop degree_sets are ', degree_sets
     for item in init:
-        dee = len(ugraph[item])          # find the degree of each node and add to corresponding set
+        dee = len(new_ugraph[item])          # find the degree of each node and add to corresponding set
         degree_sets[dee] = degree_sets[dee] | set([item])
-    print 'degree_sets are ', degree_sets
+        #print 'internal loop degree_sets are ', degree_sets
+    #print 'degree_sets are ', degree_sets
 
     target_order = []
     i = 0
@@ -152,9 +160,9 @@ def fast_targeted_order(ugraph):
         if len(degree_sets[kay]) > 0:                       # for non empty sets there are nodes of degree k
             ewe = degree_sets[kay].pop()                    # pick one of the nodes of degree k, does not need to be random
             degree_sets[kay] = degree_sets[kay] - set([ewe])  # then remove that node
-            neighbors_of_ewe = ugraph[ewe]                  # find all the neighbors of kay and decrement degree
+            neighbors_of_ewe = new_ugraph[ewe]                  # find all the neighbors of kay and decrement degree
             for element in neighbors_of_ewe:
-                new_dee = len(ugraph[element])
+                new_dee = len(new_ugraph[element])
                 degree_sets[new_dee] -= set([element])      # remove element from degree d
                 degree_sets[new_dee-1] |= set([element])    # add element to set of degree d-1, shifts element
             target_order.append(ewe)
@@ -191,6 +199,7 @@ pick.close()
 loop_count = range( 10, 1000, 10)
 fast_targeted_order_times = []
 for element in loop_count:
+    #print 'element is ', element
     upa_graph = make_rand_digraph(5, 1)
 
     # initialize helper object
@@ -210,7 +219,7 @@ for element in loop_count:
     loop = 100                                    # need to insert edges in both directions
     start_time = time.time()
     while loop > 0:
-        TO_node_list = targeted_order(upa_graph)
+        TO_node_list = fast_targeted_order(upa_graph)
         #print TO_node_list
         #print loop
         loop -= 1
