@@ -142,6 +142,7 @@ def fast_targeted_order(ugraph):
     for item in init:
         dee = len(ugraph[item])          # find the degree of each node and add to corresponding set
         degree_sets[dee] = degree_sets[dee] | set([item])
+    print 'degree_sets are ', degree_sets
 
     target_order = []
     i = 0
@@ -179,7 +180,7 @@ EX_GRAPH4 = {0:set([]), 1:set([]), 2:set([]), 3:set([])}
 EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([4]), 6:set([7]), 7:set([6])}
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
 
-print fast_targeted_order(EX_GRAPH2)
+print fast_targeted_order(EX_GRAPH1)
 
     # create output graph, initialize as complete, will track graph in helper object
 '''
