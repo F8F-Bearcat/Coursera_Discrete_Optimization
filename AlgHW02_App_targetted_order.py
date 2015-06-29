@@ -150,7 +150,7 @@ def fast_targeted_order(ugraph):
     kay = init[node_count-1]
     while kay > -1:
         if len(degree_sets[kay]) > 0:                       # for non empty sets there are nodes of degree k
-            ewe = random.choice(list(degree_sets[kay]))     # pick one of the nodes of degree k
+            ewe = degree_sets[kay].pop()                    # pick one of the nodes of degree k, does not need to be random
             degree_sets[kay] = degree_sets[kay] - set([ewe])  # then remove that node
             neighbors_of_ewe = ugraph[ewe]                  # find all the neighbors of kay and decrement degree
             for element in neighbors_of_ewe:
@@ -180,12 +180,16 @@ EX_GRAPH4 = {0:set([]), 1:set([]), 2:set([]), 3:set([])}
 EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([4]), 6:set([7]), 7:set([6])}
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
 
-print fast_targeted_order(EX_GRAPH1)
+# print fast_targeted_order(EX_GRAPH1)
+
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\Targeted_order_times.p', 'rb')
+upa_targeted_order_times = pickle.load(pick)
+pick.close()
 
     # create output graph, initialize as complete, will track graph in helper object
-'''
+
 loop_count = range( 10, 1000, 10)
-targeted_order_times = []
+fast_targeted_order_times = []
 for element in loop_count:
     upa_graph = make_rand_digraph(5, 1)
 
@@ -211,29 +215,29 @@ for element in loop_count:
         #print loop
         loop -= 1
     end_time = time.time()
-    targeted_order_times.append((end_time - start_time)/100)
+    fast_targeted_order_times.append((end_time - start_time)/100)
     print 'element is ', element, ' targeted_order run time is ', (end_time-start_time)/100
 
 
 
-xvals = loop_count
-yvals1 = targeted_order_times
-#yvals2 = ER_values
+xvals = range(10, 1000, 10)
+yvals1 = upa_targeted_order_times
+yvals2 = fast_targeted_order_times
 #yvals3 = Provided_values
 #yvals2 = [1, 4, 9, 16, 25]
 
 #print 'xvals are ', xvals
 #print 'yvals1 are ', yvals1
 
-plt.plot(xvals, yvals1, '-b', label='Targeted Order')
-#plt.plot(xvals, yvals2, '-r', label='ER Graph, p = .002')
+plt.plot(xvals, yvals1, '-b', label='UPA Targeted Order')
+plt.plot(xvals, yvals2, '-r', label='UPA Fast Targeted Order')
 #plt.plot(xvals, yvals3, '-g', label='Provided Computer Network')
 plt.legend(loc='upper right')
 plt.ylabel('Seconds')
 plt.xlabel('Number of Nodes')
-plt.title('Algorithm Run Time on Desktop Python')
+plt.title('Targeted Order Run Time on Desktop Python')
 plt.show()
-
+'''
 pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\Targeted_order_times.p', 'wb')
 pickle.dump(targeted_order_times, pick)
 pick.close()
