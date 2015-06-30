@@ -227,14 +227,15 @@ EX_GRAPH0 = {0:set([1, 2]), 1:set([]), 2:set([])}
 EX_GRAPH1 = {0:set([1, 4, 5]), 1:set([2, 6]), 2:set([3]), 3:set([0]), 4:set([1]), 5:set([2]), 6:set([])}
 EX_GRAPH2 = {0: set([1, 4, 5]), 1: set([2, 6]), 2: set([3, 7]), 3: set([7]), 4: set([1]), 5: set([2]), 6: set([]), 7: set([3]), 8: set([1, 2]), 9: set([0, 3, 4, 5, 6, 7])}
 
-er_graph = make_er_graph(1239, .001)
+er_graph = make_er_graph(1239, .002)   # probability needs to be doubled to .002 so edge count is correct when cut in half.
+                                       # there is an edge present in each direction
 
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'wb')
 pickle.dump(er_graph, pick)
 pick.close()
 
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'rb')
-read_graph = pickle.load(pick)
+er_graph = pickle.load(pick)
 pick.close()
 
 
@@ -242,7 +243,7 @@ node_count = 0
 edge_count = 0
 for ele in er_graph:
     node_count += 1
-    edge_count += len(er_graph[ele])
+    edge_count += len(er_graph[ele])/2.0
 
 print 'node count should be 1239 ', node_count
 print 'edge count should be near 3047 ', edge_count

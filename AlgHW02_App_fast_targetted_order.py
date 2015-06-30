@@ -279,14 +279,36 @@ pick.close()
 '''
 # get provided graph
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\provided_graph.p', 'rb')
-provided_graph = pickle.load(pick)
 pick.close()
 
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\upa_graph.p', 'rb')
+provided_graph = pickle.load(pick)
 upa_graph = pickle.load(pick)
 pick.close()
 '''
+print 'er_graph is ', er_graph
+print ' '
 
+deg_dict = {}
+node_count = 0
+edge_count = 0
+for ele in er_graph:
+    node_count += 1
+    edge_count += len(er_graph[ele])/2.0
+    if len(er_graph[ele]) not in deg_dict:
+        deg_dict[len(er_graph[ele])] = 1
+    else:
+        deg_dict[len(er_graph[ele])] += 1
+
+print 'node_count is ', node_count
+print 'edge_count is ', edge_count
+print 'deg_dict is ', deg_dict
+
+prioritized_attack = fast_targeted_order(er_graph)
+print 'prioritized attack is ', prioritized_attack
+largest_cc = compute_resilience(er_graph, prioritized_attack)
+
+print 'largest cc is ', largest_cc
 
 
 '''
