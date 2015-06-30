@@ -191,15 +191,15 @@ EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set
 
 # print fast_targeted_order(EX_GRAPH1)
 
-pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\Targeted_order_times.p', 'rb')
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\Targeted_order_times.p', 'rb')
 upa_targeted_order_times = pickle.load(pick)
 pick.close()
 
-pick = open('C:\Users\Dad\Desktop\er_graph.p', 'rb')    # gather er_graph
+pick = open('C:\Users\\andyd\Desktop\er_graph.p', 'rb')    # gather er_graph
 er_graph = pickle.load(pick)    
 pick.close()
 
-pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'wb')
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'wb')
 pickle.dump(er_graph, pick)
 pick.close()
 

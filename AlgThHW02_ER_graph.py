@@ -229,8 +229,12 @@ EX_GRAPH2 = {0: set([1, 4, 5]), 1: set([2, 6]), 2: set([3, 7]), 3: set([7]), 4: 
 
 er_graph = make_er_graph(1239, .001)
 
-pick = open('C:\Users\Dad\Desktop\er_graph.p', 'wb')
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'wb')
 pickle.dump(er_graph, pick)
+pick.close()
+
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'rb')
+read_graph = pickle.load(pick)
 pick.close()
 
 

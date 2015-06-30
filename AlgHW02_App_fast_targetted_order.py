@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from collections import deque
 import time
 import pickle
-import cProfile
 
 class UPATrial:
     """
@@ -272,25 +271,25 @@ EX_GRAPH4 = {0:set([]), 1:set([]), 2:set([]), 3:set([])}
 EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([4]), 6:set([7]), 7:set([6])}
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
 
-
 # get er graph
-pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'rb')
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'rb')
 er_graph = pickle.load(pick)
 pick.close()
 
+'''
 # get provided graph
-pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\provided_graph.p', 'rb')
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\provided_graph.p', 'rb')
 provided_graph = pickle.load(pick)
 pick.close()
 
-pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\upa_graph.p', 'rb')
+pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\upa_graph.p', 'rb')
 upa_graph = pickle.load(pick)
 pick.close()
+'''
 
 
 
-
-
+'''
 xvals = range(10, 1000, 10)
 yvals1 = upa_targeted_order_times
 yvals2 = fast_targeted_order_times
@@ -308,4 +307,4 @@ plt.ylabel('Seconds')
 plt.xlabel('Number of Nodes')
 plt.title('Targeted Order Run Time on Desktop Python')
 plt.show()
-
+'''
