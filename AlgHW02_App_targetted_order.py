@@ -159,6 +159,7 @@ def fast_targeted_order(ugraph):
     while kay > -1:
         if len(degree_sets[kay]) > 0:                       # for non empty sets there are nodes of degree k
             ewe = degree_sets[kay].pop()                    # pick one of the nodes of degree k, does not need to be random
+            #ewe = random.choice(list(degree_sets[kay]))
             degree_sets[kay] = degree_sets[kay] - set([ewe])  # then remove that node
             neighbors_of_ewe = new_ugraph[ewe]                  # find all the neighbors of kay and decrement degree
             for element in neighbors_of_ewe:
