@@ -288,8 +288,8 @@ provided_graph = pickle.load(pick)
 upa_graph = pickle.load(pick)
 pick.close()
 '''
-print 'er_graph is ', er_graph
-print ' '
+#print 'er_graph is ', er_graph
+#print ' '
 
 deg_dict = {}
 node_count = 0
@@ -302,34 +302,34 @@ for ele in er_graph:
     else:
         deg_dict[len(er_graph[ele])] += 1
 
-print 'node_count is ', node_count
-print 'edge_count is ', edge_count
-print 'deg_dict is ', deg_dict
-print ' '
+#print 'node_count is ', node_count
+#print 'edge_count is ', edge_count
+#print 'deg_dict is ', deg_dict
+#print ' '
 
 prioritized_attack = fast_targeted_order(er_graph)
-print 'prioritized attack is ', prioritized_attack
+#print 'prioritized attack is ', prioritized_attack
 largest_cc = compute_resilience(er_graph, prioritized_attack)
 
-print 'largest cc is ', largest_cc
+#print 'largest cc is ', largest_cc
 
 
-'''
-xvals = range(10, 1000, 10)
-yvals1 = upa_targeted_order_times
-yvals2 = fast_targeted_order_times
+
+xvals = range(len(largest_cc))
+yvals1 = largest_cc
+#yvals2 = fast_targeted_order_times
 #yvals3 = Provided_values
 #yvals2 = [1, 4, 9, 16, 25]
 
 #print 'xvals are ', xvals
 #print 'yvals1 are ', yvals1
 
-plt.plot(xvals, yvals1, '-b', label='UPA Targeted Order')
-plt.plot(xvals, yvals2, '-r', label='UPA Fast Targeted Order')
+plt.plot(xvals, yvals1, '-b', label='ER Targeted Attack')
+#plt.plot(xvals, yvals2, '-r', label='UPA Fast Targeted Order')
 #plt.plot(xvals, yvals3, '-g', label='Provided Computer Network')
 plt.legend(loc='upper right')
-plt.ylabel('Seconds')
-plt.xlabel('Number of Nodes')
-plt.title('Targeted Order Run Time on Desktop Python')
+plt.ylabel('Largest Connected Component in the Graph')
+plt.xlabel('Number of Nodes Removed')
+plt.title('Reliliance of Graphs under Targeted Attack')
 plt.show()
-'''
+
