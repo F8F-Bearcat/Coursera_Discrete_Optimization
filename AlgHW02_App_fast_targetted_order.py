@@ -149,14 +149,14 @@ def fast_targeted_order(ugraph):
         dee = len(new_ugraph[item])          # find the degree of each node and add to corresponding set
         degree_sets[dee] = degree_sets[dee] | set([item])
         #print 'internal loop degree_sets are ', degree_sets
-    #print 'degree_sets are ', degree_sets
+    #print 'Initial degree_sets are ', degree_sets
 
     fast_target_order = []
     i = 0
 
     kay = init[node_count-1]
-    while kay > -1:
-        if len(degree_sets[kay]) > 0:                       # for non empty sets there are nodes of degree k
+    while kay > -1:                            # bug in line below - was 'if' statement (one pass through), change to while
+        while len(degree_sets[kay]) > 0:                       # for non empty sets there are nodes of degree k
             ewe = degree_sets[kay].pop()                    # pick one of the nodes of degree k, does not need to be random
             #ewe = random.choice(list(degree_sets[kay]))
             degree_sets[kay] = degree_sets[kay] - set([ewe])  # then remove that node
@@ -166,6 +166,8 @@ def fast_targeted_order(ugraph):
                 degree_sets[new_dee] -= set([element])      # remove element from degree d
                 degree_sets[new_dee-1] |= set([element])    # add element to set of degree d-1, shifts element
             fast_target_order.append(ewe)
+            #print 'degree sets following insertion into fast target order list (see next line) \n'
+            #print 'degree sets are ', degree_sets
             i += 1                                          # using append means variable i is not needed
 # now remove node ewe from the graph along with associated edges...
             delete_node = ewe
@@ -303,6 +305,7 @@ for ele in er_graph:
 print 'node_count is ', node_count
 print 'edge_count is ', edge_count
 print 'deg_dict is ', deg_dict
+print ' '
 
 prioritized_attack = fast_targeted_order(er_graph)
 print 'prioritized attack is ', prioritized_attack
