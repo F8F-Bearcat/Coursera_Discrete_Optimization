@@ -278,6 +278,11 @@ pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_
 er_graph = pickle.load(pick)
 pick.close()
 
+# get provided graph
+pick = open('C:\Users\\andyd\Desktop\provided_graph.p', 'rb')
+provided_graph = pickle.load(pick)
+pick.close()
+
 '''
 # get provided graph
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\provided_graph.p', 'rb')
@@ -310,14 +315,14 @@ for ele in er_graph:
 prioritized_attack = fast_targeted_order(er_graph)
 #print 'prioritized attack is ', prioritized_attack
 largest_cc = compute_resilience(er_graph, prioritized_attack)
-
 #print 'largest cc is ', largest_cc
 
-
+provided_attack = fast_targeted_order(provided_graph)
+largest_cc_provided = compute_resilience(provided_graph, provided_attack)
 
 xvals = range(len(largest_cc))
 yvals1 = largest_cc
-#yvals2 = fast_targeted_order_times
+yvals2 = largest_cc_provided
 #yvals3 = Provided_values
 #yvals2 = [1, 4, 9, 16, 25]
 
@@ -325,7 +330,7 @@ yvals1 = largest_cc
 #print 'yvals1 are ', yvals1
 
 plt.plot(xvals, yvals1, '-b', label='ER Targeted Attack')
-#plt.plot(xvals, yvals2, '-r', label='UPA Fast Targeted Order')
+plt.plot(xvals, yvals2, '-r', label='Computer Network (Provided) Targeted Attack')
 #plt.plot(xvals, yvals3, '-g', label='Provided Computer Network')
 plt.legend(loc='upper right')
 plt.ylabel('Largest Connected Component in the Graph')
