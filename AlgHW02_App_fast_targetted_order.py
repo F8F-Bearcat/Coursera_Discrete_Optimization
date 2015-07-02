@@ -145,7 +145,7 @@ def fast_targeted_order(ugraph):
     for item in init:               # initialize list to all empty set entries
         degree_sets.append(set([]))
         #print 'internal loop degree_sets are ', degree_sets
-    for item in init:
+    for item in ugraph:
         dee = len(new_ugraph[item])          # find the degree of each node and add to corresponding set
         degree_sets[dee] = degree_sets[dee] | set([item])
         #print 'internal loop degree_sets are ', degree_sets
