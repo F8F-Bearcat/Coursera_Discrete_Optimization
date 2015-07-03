@@ -32,15 +32,19 @@ def make_rand_digraph(num_nodes, prob):
 Test_g = make_rand_digraph(1239, 1)
 
 try:
-    pick = open('C:\\Users\\Dad\\Documents\\GitHub\\Coursera_Discrete_Optimization\\Test_g.p', 'rb')
+    pick = open('C:\\Users\\andyd\\Documents\\GitHub\\Coursera_Discrete_Optimization\\Test_g.p', 'rb')
     Test_g_2 = pickle.load(pick)
     pick.close()
+    print 'try path followed'
 except:
-    pick = open('C:\\Users\\Dad\\Documents\\GitHub\\Coursera_Discrete_Optimization\\Test_g.p', 'wb')
+    pick = open('C:\\Users\\andyd\\Documents\\GitHub\\Coursera_Discrete_Optimization\\Test_g.p', 'wb')
     pickle.dump(Test_g, pick)
     pick.close()
+    print 'except path followed'
 
 # get provided graph
+print len(Test_g)
+print len(Test_g_2)
 
 if Test_g == Test_g_2:
     print 'The two graphs Test_g and Test_g_2 match !'
