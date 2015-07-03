@@ -190,7 +190,7 @@ EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
 
 # print fast_targeted_order(EX_GRAPH1)
-
+'''
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\Targeted_order_times.p', 'rb')
 upa_targeted_order_times = pickle.load(pick)
 pick.close()
@@ -202,7 +202,7 @@ pick.close()
 pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'wb')
 pickle.dump(er_graph, pick)
 pick.close()
-
+'''
 # create UPA graph of same size
 
     #print 'element is ', element
@@ -211,7 +211,7 @@ upa_graph = make_rand_digraph(5, 1)
 # initialize helper object
 helper_g = UPATrial(5)
 #enn = 10
-add_nodes = range(5, 1239)
+add_nodes = range(5, 1239)  # was ... , 1239)
 for atom in add_nodes:
     upa_graph[atom] = set([])       # add all nodes and initialize to empty set
 
@@ -222,10 +222,10 @@ for item in add_nodes:
         upa_graph[item] = upa_graph[item] | set([iota])         # likely the issue with upa graphs is here
         upa_graph[iota] = upa_graph[iota] | set([item])
 
-pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\upa_graph.p', 'wb')
+pick = open('C:\Users\Dad\Desktop\upa_graph.p', 'wb')
 pickle.dump(upa_graph, pick)
 pick.close()
-
+'''
 # get provided graph
 pick = open('C:\Users\Dad\Desktop\provided_graph.p', 'rb')
 provided_graph = pickle.load(pick)
@@ -234,7 +234,7 @@ pick.close()
 pick = open('C:\Users\Dad\Documents\GitHub\Coursera_Discrete_Optimization\provided_graph.p', 'wb')
 pickle.dump(provided_graph, pick)
 pick.close()
-
+'''
     # create output graph, initialize as complete, will track graph in helper object
 edge_count = 0
 node_count = 0
@@ -243,6 +243,8 @@ for item in upa_graph:
     node_count += 1
 print 'edge_count should be close to 3047. Actual is ', edge_count/2
 print 'node_count should be close to 1239. Actual is ', node_count
+print ' '
+#print upa_graph
 '''
 loop_count = range( 10, 1000, 10)
 fast_targeted_order_times = []

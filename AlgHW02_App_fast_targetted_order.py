@@ -274,21 +274,25 @@ EX_GRAPH5 = {0:set([2]), 1:set([3]), 2:set([0]), 3:set([1]), 4:set([5]), 5:set([
 EX_GRAPH6 = {0:set([1, 3]), 1:set([0]), 2:set([5]), 3:set([0]), 4:set([]), 5:set([2])}
 
 # get er graph
-pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\er_graph.p', 'rb')
+pick = open('C:\\Users\\Dad\\Desktop\\er_graph.p', 'rb')
 er_graph = pickle.load(pick)
 pick.close()
 
 # get provided graph
-pick = open('C:\Users\\andyd\Desktop\provided_graph.p', 'rb')
+pick = open('C:\\Users\\Dad\\Desktop\\provided_graph.p', 'rb')
 provided_graph = pickle.load(pick)
+pick.close()
+
+pick = open('C:\\Users\\Dad\\Desktop\\upa_graph.p', 'rb')
+upa_graph = pickle.load(pick)
 pick.close()
 
 '''
 # get provided graph
-pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\provided_graph.p', 'rb')
+pick = open('C:\\Users\\Dad\\Documents\\GitHub\\Coursera_Discrete_Optimization\\provided_graph.p', 'rb')
 pick.close()
 
-pick = open('C:\Users\\andyd\Documents\GitHub\Coursera_Discrete_Optimization\upa_graph.p', 'rb')
+pick = open('C:\\Users\\Dad\\Documents\\GitHub\\Coursera_Discrete_Optimization\\upa_graph.p', 'rb')
 provided_graph = pickle.load(pick)
 upa_graph = pickle.load(pick)
 pick.close()
@@ -320,10 +324,13 @@ largest_cc = compute_resilience(er_graph, prioritized_attack)
 provided_attack = fast_targeted_order(provided_graph)
 largest_cc_provided = compute_resilience(provided_graph, provided_attack)
 
+provided_attack = fast_targeted_order(upa_graph)
+largest_cc_upa = compute_resilience(upa_graph, provided_attack)
+
 xvals = range(len(largest_cc))
 yvals1 = largest_cc
 yvals2 = largest_cc_provided
-#yvals3 = Provided_values
+yvals3 = largest_cc_upa
 #yvals2 = [1, 4, 9, 16, 25]
 
 #print 'xvals are ', xvals
@@ -331,7 +338,7 @@ yvals2 = largest_cc_provided
 
 plt.plot(xvals, yvals1, '-b', label='ER Targeted Attack')
 plt.plot(xvals, yvals2, '-r', label='Computer Network (Provided) Targeted Attack')
-#plt.plot(xvals, yvals3, '-g', label='Provided Computer Network')
+plt.plot(xvals, yvals3, '-g', label='UPA Targeted Attack')
 plt.legend(loc='upper right')
 plt.ylabel('Largest Connected Component in the Graph')
 plt.xlabel('Number of Nodes Removed')
