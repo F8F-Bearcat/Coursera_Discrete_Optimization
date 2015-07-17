@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 
 
 seed = 2        # set random seed so results can be reproducible
-size = 20       # number of points generated
-loops = 100     # number of  test cases generated and checked
+size = 60       # number of points generated
+loops = 200     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 random.seed(control_vector[0])
 
@@ -41,12 +41,12 @@ for cycle in range(loops):
         debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
         debug_db[cycle] = debug_info
 
-    print slow_distance, fast_distance
+    #1print slow_distance, fast_distance
 
 print ' '
 print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
-print debug_db
+#1print debug_db
 
 plot_me = debug_info[0]
 xval, yval = zip(*plot_me)
