@@ -9,10 +9,13 @@ Run millions of verification cases to make sure FastClosestPair delivers the sam
 import random
 import cluster_class
 import SlowClosestPair
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 seed = 1        # set random seed so results can be reproducible
 size = 20       # number of points generated
-loops = 1000     # number of  test cases generated and checked
+loops = 100     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 
 for cycle in range(loops):
@@ -32,6 +35,16 @@ for cycle in range(loops):
         cluster_list.append(first_cluster)
 
     slow_distance = SlowClosestPair.SlowClosestPair(cluster_list)
+    fast_distance = (.03, 1, 2)  # just a placeholder tuple at this point
+
+    debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
 
     print slow_distance
 
+plot_me = debug_info[0]
+xval, yval = zip(*plot_me)
+plt.scatter(xval, yval, s=20, c='b', alpha=0.5)
+n = range(len(xval))
+for i, txt in enumerate(n):
+    plt.annotate(txt, (xval[i], yval[i]))
+plt.show()
