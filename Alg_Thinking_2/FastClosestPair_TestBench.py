@@ -13,10 +13,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-seed = 1        # set random seed so results can be reproducible
+seed = 2        # set random seed so results can be reproducible
 size = 20       # number of points generated
-loops = 500     # number of  test cases generated and checked
+loops = 100     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
+random.seed(control_vector[0])
 
 for cycle in range(loops):
 
@@ -26,6 +27,7 @@ for cycle in range(loops):
         point_y = 2*random.random() - 1
         point = (point_x, point_y)
         all_points.append(point)
+    all_points.sort()
 
     #print all_points
 
