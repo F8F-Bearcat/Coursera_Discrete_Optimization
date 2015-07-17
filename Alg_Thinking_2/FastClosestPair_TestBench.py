@@ -20,6 +20,8 @@ loops = 100     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 random.seed(control_vector[0])
 
+debug_db = {}
+pass_count = 0
 for cycle in range(loops):
 
     all_points = []
@@ -33,9 +35,18 @@ for cycle in range(loops):
     slow_distance = SlowClosestPair.SlowClosestPair(all_points)
     fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
 
-    debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
+    if slow_distance == fast_distance:
+        pass_count += 1
+    else:
+        debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
+        debug_db[cycle] = debug_info
 
-    print slow_distance
+    print slow_distance, fast_distance
+
+print ' '
+print ' pass percentage is ', pass_count*100./(cycle+1)
+print ' '
+print debug_db
 
 plot_me = debug_info[0]
 xval, yval = zip(*plot_me)
