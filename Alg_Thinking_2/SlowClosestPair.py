@@ -26,7 +26,7 @@ def SlowClosestPair(list_of_points):
     ret_list = [float('inf'), -1, -1]
     all_combinations_two_points = [list(x) for x in itertools.combinations(list_of_points, 2)]
     for item in all_combinations_two_points:
-        distance = item[0].distance(item[1])
+        distance = euclid_dist(item[0], item[1])
         if distance < ret_list[0]:   # if true, a new minimum distance has been found
             ret_list[0] = distance
             ret_list[1] = list_of_points.index(item[0])

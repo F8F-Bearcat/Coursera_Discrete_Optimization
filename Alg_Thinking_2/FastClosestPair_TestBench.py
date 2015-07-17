@@ -9,6 +9,7 @@ Run millions of verification cases to make sure FastClosestPair delivers the sam
 import random
 import cluster_class
 import SlowClosestPair
+import FastClosestPair
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -29,15 +30,8 @@ for cycle in range(loops):
         all_points.append(point)
     all_points.sort()
 
-    #print all_points
-
-    cluster_list = []
-    for point in all_points:
-        first_cluster = cluster_class.Cluster(95014, point[0], point[1], 100, .5)
-        cluster_list.append(first_cluster)
-
-    slow_distance = SlowClosestPair.SlowClosestPair(cluster_list)
-    fast_distance = (.03, 1, 2)  # just a placeholder tuple at this point
+    slow_distance = SlowClosestPair.SlowClosestPair(all_points)
+    fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
 
     debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
 
@@ -50,3 +44,12 @@ n = range(len(xval))
 for i, txt in enumerate(n):
     plt.annotate(txt, (xval[i], yval[i]))
 plt.show()
+
+
+    #print all_points
+'''
+    cluster_list = []
+    for point in all_points:
+        first_cluster = cluster_class.Cluster(95014, point[0], point[1], 100, .5)
+        cluster_list.append(first_cluster)
+'''
