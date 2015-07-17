@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 seed = 1        # set random seed so results can be reproducible
 size = 20       # number of points generated
-loops = 100     # number of  test cases generated and checked
+loops = 500     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 
 for cycle in range(loops):
