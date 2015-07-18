@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 seed = 3        # set random seed so results can be reproducible
 size = 5       # number of points generated
-loops = 1     # number of  test cases generated and checked
+loops = 100     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 random.seed(control_vector[0])
 
@@ -48,6 +48,7 @@ print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
 print debug_db
 
+'''
 plot_me = debug_info[0]
 xval, yval = zip(*plot_me)
 plt.scatter(xval, yval, s=20, c='b', alpha=0.5)
@@ -55,6 +56,7 @@ n = range(len(xval))
 for i, txt in enumerate(n):
     plt.annotate(txt, (xval[i], yval[i]))
 plt.show()
+'''
 
 
     #print all_points

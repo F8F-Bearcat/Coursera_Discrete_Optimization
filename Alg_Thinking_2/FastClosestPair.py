@@ -14,14 +14,15 @@ def ClosestPairStrip(list_of_points, mid, dee):
     '''
     points_in_strip = []
     for point in list_of_points:
-        if (abs(point[0]-dee)/2.0) < dee:
+        if (abs(point[0]-mid)) < dee:
             points_in_strip.append(point)
 
     points_in_strip.sort(key=lambda x: x[1])  # non decreasing order
-    print 'mid is ', mid
-    print 'dee is ', dee
-    print 'points_in_strip are '
-    print points_in_strip
+    #print 'mid is ', mid
+    #print 'dee is ', dee
+    #print 'points_in_strip are '
+    #print points_in_strip
+    #print 'list of points are ', list_of_points
     
     strip_point_count = len(points_in_strip)
     ret_tuple = (float('inf'), -1, -1)
