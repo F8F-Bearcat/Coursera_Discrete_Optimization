@@ -5,15 +5,36 @@ This script implements the FastClosestPair function from Homework 3, Project 3
 import math
 import itertools
 import random
-import cluster_class
 import SlowClosestPair
 
 def ClosestPairStrip(list_of_points, mid, dee):
     '''
-    Input: a list of points, the x location of the split plane, and dee the width of the strip?? verify that it's width
+    Input: a list of points, the x location of the split plane, and dee is half the strip width
     Output: tuple (d, i, j) representing the closest points in the middle closest_strip_tuple
     '''
-    return (2, 2, 3)  # this is a placeholder for testing FastClosestPair
+    points_in_strip = []
+    for point in list_of_points:
+        if (abs(point[0]-dee)/2.0) < dee:
+            points_in_strip.append(point)
+
+    points_in_strip.sort(key=lambda x: x[1])  # non decreasing order
+    print 'mid is ', mid
+    print 'dee is ', dee
+    print 'points_in_strip are '
+    print points_in_strip
+    
+    strip_point_count = len(points_in_strip)
+    ret_tuple = (float('inf'), -1, -1)
+
+    for check in range(strip_point_count-2):
+        terminate = min(check+3, strip_point_count-1)
+        vee = check + 1
+        for item in range(vee, terminate + 1):
+            strip_tuple = SlowClosestPair.SlowClosestPair([points_in_strip[check], points_in_strip[item]])
+            if strip_tuple[0] < ret_tuple[0]:
+                ret_tuple = strip_tuple
+
+    return ret_tuple  # this is a placeholder for testing FastClosestPair
 
 def FastClosestPair(list_of_points):
     '''
@@ -41,6 +62,7 @@ def FastClosestPair(list_of_points):
             left_and_right_min_tuple = right_tuple
         middle = .5*(list_of_points[split-1][0] + list_of_points[split][0])
         closest_strip_tuple = ClosestPairStrip(list_of_points, middle, left_and_right_min_tuple[0])
+        #print 'd is ', left_and_right_min_tuple[0]
         #print 'left_and_right_min_tuple[0] is ', left_and_right_min_tuple[0]
         #print 'closest_strip_tuple[0] is ', closest_strip_tuple[0]
         if left_and_right_min_tuple[0] < closest_strip_tuple[0]:

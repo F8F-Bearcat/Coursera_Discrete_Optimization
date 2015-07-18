@@ -5,7 +5,6 @@ This script implements the SlowClosestPair function from Homework 3, Project 3
 import math
 import itertools
 import random
-import cluster_class
 
 def euclid_dist(pOne, pTwo):
     '''

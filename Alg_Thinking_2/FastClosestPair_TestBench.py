@@ -7,16 +7,15 @@ The brute force design is viewed as the 'golden reference', easy to implement, b
 Run millions of verification cases to make sure FastClosestPair delivers the same results
 '''
 import random
-import cluster_class
 import SlowClosestPair
 import FastClosestPair
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-seed = 2        # set random seed so results can be reproducible
-size = 60       # number of points generated
-loops = 200     # number of  test cases generated and checked
+seed = 3        # set random seed so results can be reproducible
+size = 5       # number of points generated
+loops = 1     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 random.seed(control_vector[0])
 
@@ -34,8 +33,9 @@ for cycle in range(loops):
 
     slow_distance = SlowClosestPair.SlowClosestPair(all_points)
     fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
+    print slow_distance, fast_distance
 
-    if slow_distance == fast_distance:
+    if slow_distance[0] == fast_distance[0]:
         pass_count += 1
     else:
         debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
@@ -46,7 +46,7 @@ for cycle in range(loops):
 print ' '
 print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
-#1print debug_db
+print debug_db
 
 plot_me = debug_info[0]
 xval, yval = zip(*plot_me)
