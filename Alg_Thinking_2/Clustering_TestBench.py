@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-seed = 0        # set random seed so results can be reproducible
+seed = 3        # set random seed so results can be reproducible
 size = 30       # number of points generated
 loops = 1     # number of  test cases generated and checked
 cluster_count = 3
