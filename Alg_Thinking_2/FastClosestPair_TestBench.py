@@ -25,7 +25,7 @@ for cycle in range(loops):
 
     all_points = []
     for item in range(size):    # make random test points in area bounded by +/- 1 in x,y  0,0 center
-        point_x = 2*random.random() - 1
+        point_x = 2*random.random() - 1  # scale the coordinates to (-1, 1)
         point_y = 2*random.random() - 1
         point = (point_x, point_y)
         all_points.append(point)
@@ -35,7 +35,7 @@ for cycle in range(loops):
     fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
     print slow_distance, fast_distance
 
-    if slow_distance[0] == fast_distance[0]:
+    if slow_distance == fast_distance:
         pass_count += 1
     else:
         debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
