@@ -15,7 +15,7 @@ def HierClust(point_list, final_cluster_count):
     size = len(point_list)
     cluster_list = []
     for point in point_list:
-        cc = cluster_class.Cluster(95014, point[0], point[1], 1000, .001)
+        cc = cluster_class.Cluster(set([95014]), point[0], point[1], 1000, .001)
         cluster_list.append(cc)
     i = 0
     while len(cluster_list) > final_cluster_count:
@@ -24,8 +24,9 @@ def HierClust(point_list, final_cluster_count):
             list_of_points.append((item.horiz_center(), item.vert_center()))
         closest_clusters = FastClosestPair.FastClosestPair(list_of_points)
         print closest_clusters
-        i += 1
-        if i == 10:
-            break
+        lower_index_cluster = cluster_list[closest_clusters[1]]
+        higher_index_cluster = cluster_list[closest_clusters[2]]
+        lower_index_cluster.merge_clusters(higher_index_cluster)
+        cluster_list.remove(higher_index_cluster)
 
-    pass
+    return cluster_list

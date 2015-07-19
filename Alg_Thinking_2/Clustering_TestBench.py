@@ -12,8 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-seed = 7        # set random seed so results can be reproducible
-size = 10       # number of points generated
+seed = 0        # set random seed so results can be reproducible
+size = 30       # number of points generated
 loops = 1     # number of  test cases generated and checked
 cluster_count = 3
 control_vector = [seed, size, loops, cluster_count]
@@ -39,7 +39,7 @@ print ' '
 print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
 #print debug_db
-
+print 'result list is ', result
 
 #plot_me = debug_info[0]
 plot_me = all_points
@@ -48,9 +48,22 @@ plt.scatter(xval, yval, s=20, c='b', alpha=0.5)
 n = range(len(xval))
 for i, txt in enumerate(n):
     plt.annotate(txt, (xval[i], yval[i]))
+plt.draw()
+#wait = raw_input()  # hit enter to get the second plot shown
+
+plot_cluster = []
+for item in result:
+    point_x = item.horiz_center()
+    point_y = item.vert_center()
+    plot_cluster.append((point_x, point_y))
+
+plt.figure()  #makes another window
+xval, yval = zip(*plot_cluster)
+plt.scatter(xval, yval, s=40, c='b', alpha=0.5)
+n = range(len(xval))
+for i, txt in enumerate(n):
+    plt.annotate(txt, (xval[i], yval[i]))
 plt.show()
-
-
 
     #print all_points
 '''
