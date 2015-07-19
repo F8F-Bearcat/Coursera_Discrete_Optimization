@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 
 
 seed = 3        # set random seed so results can be reproducible
-size = 5       # number of points generated
-loops = 100     # number of  test cases generated and checked
+size = 30       # number of points generated
+loops = 1000     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 random.seed(control_vector[0])
 

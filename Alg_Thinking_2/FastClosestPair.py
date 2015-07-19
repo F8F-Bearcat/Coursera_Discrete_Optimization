@@ -27,15 +27,20 @@ def ClosestPairStrip(list_of_points, mid, dee):
     strip_point_count = len(points_in_strip)
     ret_tuple = (float('inf'), -1, -1)
 
-    for check in range(strip_point_count-2):
-        terminate = min(check+3, strip_point_count-1)
-        vee = check + 1
-        for item in range(vee, terminate + 1):
-            strip_tuple = SlowClosestPair.SlowClosestPair([points_in_strip[check], points_in_strip[item]])
-            if strip_tuple[0] < ret_tuple[0]:
-                ret_tuple = strip_tuple
+    for coordinate in points_in_strip:
+        if points_in_strip.index(coordinate) == strip_point_count - 1:
+            break
+        else:
+            for check in range(1, 4):  # check 3 points
+                rt_index = points_in_strip.index(coordinate)+check
+                if (rt_index) == strip_point_count:
+                    break
+                else:
+                    strip_tuple = SlowClosestPair.SlowClosestPair([coordinate, points_in_strip[rt_index]])
+                    if strip_tuple[0] < ret_tuple[0]:
+                        ret_tuple = strip_tuple
 
-    return ret_tuple  # this is a placeholder for testing FastClosestPair
+    return ret_tuple
 
 def FastClosestPair(list_of_points):
     '''
@@ -115,4 +120,13 @@ p07 = cluster_class.Cluster(95014, -1, -1, 100, .5)
 p08 = cluster_class.Cluster(95014, 0, -1, 100, .5)
 p09 = cluster_class.Cluster(95014, 1, -1, 100, .5)
 p10 = cluster_class.Cluster(95014, 1, 1.1, 100, .5)
+'''
+'''
+    for check in range(strip_point_count-2):
+        terminate = min(check+3, strip_point_count-1)
+        vee = check + 1
+        for item in range(vee, terminate + 1):
+            strip_tuple = SlowClosestPair.SlowClosestPair([points_in_strip[check], points_in_strip[item]])
+            if strip_tuple[0] < ret_tuple[0]:
+                ret_tuple = strip_tuple
 '''
