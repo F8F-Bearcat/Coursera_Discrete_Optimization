@@ -7,16 +7,16 @@ The brute force design is viewed as the 'golden reference', easy to implement, b
 Run millions of verification cases to make sure FastClosestPair delivers the same results
 '''
 import random
-import SlowClosestPair
-import FastClosestPair
+import HierClust
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 seed = 7        # set random seed so results can be reproducible
-size = 60       # number of points generated
-loops = 200000     # number of  test cases generated and checked
-control_vector = [seed, size, loops]
+size = 10       # number of points generated
+loops = 1     # number of  test cases generated and checked
+cluster_count = 3
+control_vector = [seed, size, loops, cluster_count]
 random.seed(control_vector[0])
 
 debug_db = {}
@@ -31,15 +31,7 @@ for cycle in range(loops):
         all_points.append(point)
     all_points.sort()
 
-    slow_distance = SlowClosestPair.SlowClosestPair(all_points)
-    fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
-    #print slow_distance, fast_distance
-
-    if slow_distance == fast_distance:
-        pass_count += 1
-    else:
-        debug_info = [all_points, seed, cycle, slow_distance, fast_distance]
-        debug_db[cycle] = debug_info
+result = HierClust.HierClust(all_points, cluster_count )
 
     #1print slow_distance, fast_distance
 
@@ -48,15 +40,16 @@ print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
 #print debug_db
 
-'''
-plot_me = debug_info[0]
+
+#plot_me = debug_info[0]
+plot_me = all_points
 xval, yval = zip(*plot_me)
 plt.scatter(xval, yval, s=20, c='b', alpha=0.5)
 n = range(len(xval))
 for i, txt in enumerate(n):
     plt.annotate(txt, (xval[i], yval[i]))
 plt.show()
-'''
+
 
 
     #print all_points

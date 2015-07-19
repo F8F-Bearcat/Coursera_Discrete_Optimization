@@ -3,8 +3,6 @@ For Algorithmic Thinking Part 2 - Coursera class
 This script implements the FastClosestPair function from Homework 3, Project 3
 '''
 import math
-import itertools
-import random
 import SlowClosestPair
 
 def ClosestPairStrip(list_of_points, mid, dee):
@@ -23,7 +21,7 @@ def ClosestPairStrip(list_of_points, mid, dee):
     #print 'points_in_strip are '
     #print points_in_strip
     #print 'list of points are ', list_of_points
-    
+
     strip_point_count = len(points_in_strip)
     ret_tuple = (float('inf'), -1, -1)
 
