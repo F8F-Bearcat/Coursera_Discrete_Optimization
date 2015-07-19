@@ -28,5 +28,6 @@ def HierClust(point_list, final_cluster_count):
         higher_index_cluster = cluster_list[closest_clusters[2]]
         lower_index_cluster.merge_clusters(higher_index_cluster)
         cluster_list.remove(higher_index_cluster)
+        cluster_list.sort(key=lambda cluster: cluster.horiz_center())
 
     return cluster_list
