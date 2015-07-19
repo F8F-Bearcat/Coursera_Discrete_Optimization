@@ -47,7 +47,9 @@ xval, yval = zip(*plot_me)
 plt.scatter(xval, yval, s=20, c='b', alpha=0.5)
 n = range(len(xval))
 for i, txt in enumerate(n):
-    plt.annotate(txt, (xval[i], yval[i]))
+    plt.annotate(txt, (xval[i]+.02, yval[i]+.02))
+plt.xlim(-1, 1)
+plt.ylim(-1, 1)
 plt.draw()
 #wait = raw_input()  # hit enter to get the second plot shown
 
@@ -59,10 +61,12 @@ for item in result:
 
 plt.figure()  #makes another window
 xval, yval = zip(*plot_cluster)
-plt.scatter(xval, yval, s=40, c='b', alpha=0.5)
+plt.scatter(xval, yval, s=60, c='g', alpha=0.5)
 n = range(len(xval))
 for i, txt in enumerate(n):
-    plt.annotate(txt, (xval[i], yval[i]))
+    plt.annotate(txt, (xval[i]+.05, yval[i]+.05))
+plt.xlim(-1, 1)
+plt.ylim(-1, 1)
 plt.show()
 
     #print all_points
