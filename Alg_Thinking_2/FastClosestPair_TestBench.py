@@ -33,7 +33,7 @@ for cycle in range(loops):
 
     slow_distance = SlowClosestPair.SlowClosestPair(all_points)
     fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
-    print slow_distance, fast_distance
+    #print slow_distance, fast_distance
 
     if slow_distance == fast_distance:
         pass_count += 1
@@ -46,7 +46,7 @@ for cycle in range(loops):
 print ' '
 print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
-print debug_db
+#print debug_db
 
 '''
 plot_me = debug_info[0]

@@ -38,7 +38,16 @@ def ClosestPairStrip(list_of_points, mid, dee):
                 else:
                     strip_tuple = SlowClosestPair.SlowClosestPair([coordinate, points_in_strip[rt_index]])
                     if strip_tuple[0] < ret_tuple[0]:
-                        ret_tuple = strip_tuple
+                        answer_list = []
+                        answer_list.append(strip_tuple[0])
+                        #put the indices in increasing order
+                        if list_of_points.index(coordinate) < list_of_points.index(points_in_strip[rt_index]):
+                            answer_list.append(list_of_points.index(coordinate))
+                            answer_list.append(list_of_points.index(points_in_strip[rt_index]))
+                        else:
+                            answer_list.append(list_of_points.index(points_in_strip[rt_index]))
+                            answer_list.append(list_of_points.index(coordinate))
+                        ret_tuple = tuple(answer_list)
 
     return ret_tuple
 
