@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 seed = 7        # set random seed so results can be reproducible
 size = 60       # number of points generated
-loops = 10000     # number of  test cases generated and checked
+loops = 1000     # number of  test cases generated and checked
 control_vector = [seed, size, loops]
 random.seed(control_vector[0])
 
@@ -31,7 +31,7 @@ for cycle in range(loops):
         all_points.append(point)
     all_points.sort()
 
-    slow_distance = SlowClosestPair.SlowClosestPair(all_points)
+    slow_distance = SlowClosestPair.slow_closest_pair(all_points)
     fast_distance = FastClosestPair.FastClosestPair(all_points)  # just a placeholder tuple at this point
     #print slow_distance, fast_distance
 
