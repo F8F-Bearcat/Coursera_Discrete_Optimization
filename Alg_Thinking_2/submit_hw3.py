@@ -13,8 +13,8 @@ def euclid_dist(p_one, p_two):
     Output: The euclidian distance between the two points
     Calculates euclidian distance between two points in a plane: math.sqrt((x0-x1)**2 +(y0-y1)**2)
     '''
-    assert len(p_one) == len(p_two), 'the two input points need the same dimension'
-    assert len(p_one) == 2, 'both inputs need two coordinates'
+    #assert len(p_one) == len(p_two), 'the two input points need the same dimension'
+    #assert len(p_one) == 2, 'both inputs need two coordinates'
     return math.sqrt((p_one[0]-p_two[0])**2 + (p_one[1]-p_two[1])**2)
 
 def slow_closest_pair(list_of_points):
@@ -43,25 +43,3 @@ def slow_closest_pair(list_of_points):
             hi_index = list_of_points.index(item[1])
             assert low_index < hi_index, 'index order small to large'
     return tuple(ret_list)
-'''
-p01 = cluster_class.Cluster(95014, 0, 0, 100, .5)
-p02 = cluster_class.Cluster(95014, 0, 1, 100, .5)
-p03 = cluster_class.Cluster(95014, 1, 1, 100, .5)
-p04 = cluster_class.Cluster(95014, 1, 0, 100, .5)
-p05 = cluster_class.Cluster(95014, -1, 1, 100, .5)
-p06 = cluster_class.Cluster(95014, -1, 0, 100, .5)
-p07 = cluster_class.Cluster(95014, -1, -1, 100, .5)
-p08 = cluster_class.Cluster(95014, 0, -1, 100, .5)
-p09 = cluster_class.Cluster(95014, 1, -1, 100, .5)
-p10 = cluster_class.Cluster(95014, 1, 1.1, 100, .5)
-
-test_list = [p01, p02, p03, p04, p05, p06, p07, p08, p09, p10]
-
-for element in range(100000):
-    random.shuffle(test_list)
-    print SlowClosestPair(test_list)
-'''
-p01 = (0,0)
-p02 = (1,0)
-test_list = [p01, p02]
-print slow_closest_pair(test_list)
