@@ -119,3 +119,20 @@ def fast_closest_pair(list_of_clusters):
         else:
             ret_tuple = closest_strip_tuple
     return ret_tuple
+
+def hierarchical_clustering(cluster_list, final_cluster_count):
+    '''
+    Input: list of points to build clusters around, and a final target number of clusters
+    Output: a list with final_cluster_count number of clusters
+    '''
+    while len(cluster_list) > final_cluster_count:
+        closest_clusters = fast_closest_pair(cluster_list)
+        #print closest_clusters
+        lower_index_cluster = cluster_list[closest_clusters[1]]
+        higher_index_cluster = cluster_list[closest_clusters[2]]
+        lower_index_cluster.merge_clusters(higher_index_cluster)
+        cluster_list.remove(higher_index_cluster)
+        cluster_list.sort(key=lambda cluster: cluster.horiz_center())
+
+    return cluster_list
+    
