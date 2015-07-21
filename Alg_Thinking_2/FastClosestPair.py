@@ -18,17 +18,11 @@ def closest_pair_strip(list_of_clusters, mid, dee):
             clusters_in_strip.append(cluster)
 
     clusters_in_strip.sort(key=lambda cluster: cluster.vert_center())  # non decreasing order
-    #print 'mid is ', mid
-    #print 'dee is ', dee
-    #print 'clusters_in_strip are '
-    #print clusters_in_strip
-    #print 'list of points are ', list_of_clusters
 
     strip_point_count = len(clusters_in_strip)
     ret_tuple = (float('inf'), -1, -1)
 
     for cluster in clusters_in_strip:
-        #print 'look at this cluster', clusters_in_strip.index(cluster)
         if clusters_in_strip.index(cluster) == strip_point_count - 1:
             break
         else:
@@ -65,20 +59,14 @@ def fast_closest_pair(list_of_clusters):
         ret_tuple = SlowClosestPair.slow_closest_pair(list_of_clusters)
     else:
         split = int(math.floor(size/2.0))
-        #print 'split is ', split
         left = list_of_clusters[:split]
-        #print 'left is ', left
         right = list_of_clusters[split:]
-        #print 'right is ', right
         left_tuple = fast_closest_pair(left)
-        #print 'left_tuple is ', left_tuple
         right_tuple = fast_closest_pair(right)
-        #print 'right_tuple is ', right_tuple
         right_list = list(right_tuple)
         right_list[1] += split
         right_list[2] += split
         right_tuple = tuple(right_list)
-        #print 'second right_tuple is ', right_tuple
         if left_tuple[0] < right_tuple[0]:
             l_and_r_min_tuple = left_tuple
         else:
@@ -86,25 +74,10 @@ def fast_closest_pair(list_of_clusters):
         m_minus_one = list_of_clusters[split-1].horiz_center()
         m_itself = list_of_clusters[split].horiz_center()
         middle = .5*(m_minus_one + m_itself)
-        #print 'middle is ', middle
-        #print 'dee is ', l_and_r_min_tuple[0]
         closest_strip_tuple = closest_pair_strip(list_of_clusters, middle, l_and_r_min_tuple[0])
-        #print 'd is ', l_and_r_min_tuple[0]
-        #print 'l_and_r_min_tuple[0] is ', l_and_r_min_tuple[0]
-        #print 'closest_strip_tuple[0] is ', closest_strip_tuple[0]
         if l_and_r_min_tuple[0] < closest_strip_tuple[0]:
             ret_tuple = l_and_r_min_tuple
         else:
             ret_tuple = closest_strip_tuple
     return ret_tuple
-
-'''
-test_list = [(-0.5353004213408008, 0.8769450694142287), (-0.055573548533075945, -0.6886736187148934), (0.1000582810382562, 0.40804899650093307), (0.12508086036682675, 0.9796129245098657), (0.14368005661209637, -0.18625701316364385), (0.3661535415505568, -0.7519118099544913)]
-#test_list = [alg_cluster.Cluster(set([]), -0.535300421341, 0.876945069414, 1, 1), alg_cluster.Cluster(set([]), -0.0555735485331, -0.688673618715, 1, 1), alg_cluster.Cluster(set([]), 0.100058281038, 0.408048996501, 1, 1), alg_cluster.Cluster(set([]), 0.125080860367, 0.97961292451, 1, 1), alg_cluster.Cluster(set([]), 0.143680056612, -0.186257013164, 1, 1), alg_cluster.Cluster(set([]), 0.366153541551, -0.751911809954, 1, 1)]
-test_list_cluster = []
-for point in test_list:
-    cluster = cluster_class.Cluster(set([]), point[0], point[1], 1, 2)
-    test_list_cluster.append(cluster)
-print fast_closest_pair(test_list_cluster)
-'''
-
+    
