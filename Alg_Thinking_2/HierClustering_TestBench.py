@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-seed = 5        # set random seed so results can be reproducible
+seed = 9        # set random seed so results can be reproducible
 size = 10       # number of points generated
 loops = 1     # number of  test cases generated and checked
 cluster_count = 3
@@ -34,7 +34,7 @@ for cycle in range(loops):
 
     all_clusters = []  # all_clusters will be mutated, so plot points 
     for point in all_points:
-        initial_cluster = cluster_class.Cluster(set([]), point[0], point[1], 1, 2)
+        initial_cluster = cluster_class.Cluster(set([95014]), point[0], point[1], 1, 2)
         all_clusters.append(initial_cluster)
 
 result = HierClust.hierarchical_clustering(all_clusters, cluster_count )

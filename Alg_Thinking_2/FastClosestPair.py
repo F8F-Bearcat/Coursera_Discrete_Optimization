@@ -48,12 +48,13 @@ def closest_pair_strip(list_of_clusters, mid, dee):
 
     return ret_tuple
 
-def fast_closest_pair(list_of_clusters):
+def fast_closest_pair(input_cluster_list):
     '''
     Input: a list of clusters
     Output: a tuple (d, i, j) where d is the smallest between any of the points in list_of_clusters
             and i and j are the indexes of the two points that are the closest together
     '''
+    list_of_clusters = [c.copy() for c in input_cluster_list]
     size = len(list_of_clusters)
     if size < 4:
         ret_tuple = SlowClosestPair.slow_closest_pair(list_of_clusters)
