@@ -14,9 +14,9 @@ import matplotlib.pyplot as plt
 
 
 seed = 9        # set random seed so results can be reproducible
-size = 10       # number of points generated
-loops = 1     # number of  test cases generated and checked
-cluster_count = 3
+size = 40       # number of points generated
+loops = 1000     # number of  test cases generated and checked
+cluster_count = 7
 control_vector = [seed, size, loops, cluster_count]
 random.seed(control_vector[0])
 
@@ -34,12 +34,19 @@ for cycle in range(loops):
 
     all_clusters = []  # all_clusters will be mutated, so plot points 
     for point in all_points:
-        initial_cluster = cluster_class.Cluster(set([95014]), point[0], point[1], 1, 2)
+        idx = all_points.index(point) # unique index so final set should contain all
+        initial_cluster = cluster_class.Cluster(set([idx]), point[0], point[1], idx+1, (idx+1)/2.0)
         all_clusters.append(initial_cluster)
 
-result = HierClust.hierarchical_clustering(all_clusters, cluster_count )
+    result = HierClust.hierarchical_clustering(all_clusters, cluster_count )
 
-    #1print slow_distance, fast_distance
+        #1print slow_distance, fast_distance
+    final_cluster_count = 0
+    for cluster in result:
+        final_cluster_count += len(cluster.fips_codes())
+
+    if final_cluster_count == size:
+        pass_count += 1
 
 print ' '
 print ' pass percentage is ', pass_count*100./(cycle+1)

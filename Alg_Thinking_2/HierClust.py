@@ -22,6 +22,7 @@ def hierarchical_clustering(cluster_list, final_cluster_count):
     '''
     while len(copy_clusters) > final_cluster_count:
         #print 'copy_clusters is ', copy_clusters
+        copy_clusters.sort(key=lambda cluster: cluster.horiz_center())  # sort just before needed
         closest_clusters = FastClosestPair.fast_closest_pair(copy_clusters)
         #print 'closest_clusters are ', closest_clusters
         lower_index_cluster = copy_clusters[closest_clusters[1]]
@@ -33,7 +34,7 @@ def hierarchical_clustering(cluster_list, final_cluster_count):
         #print 'copy_clusters is ', copy_clusters
         copy_clusters.remove(higher_index_cluster)
         #print 'copy_clusters after removal of higher index ', copy_clusters
-        copy_clusters.sort(key=lambda cluster: cluster.horiz_center())
+        # comment this out - if this fixes, come back and understand why... copy_clusters.sort(key=lambda cluster: cluster.horiz_center())
         #print 'copy_clusters after removal of higher index and sort ', copy_clusters
 
     return copy_clusters
