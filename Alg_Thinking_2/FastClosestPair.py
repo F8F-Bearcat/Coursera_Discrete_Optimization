@@ -17,7 +17,7 @@ def closest_pair_strip(list_of_clusters, mid, dee):
         if (abs(cluster.horiz_center()-mid)) < dee:
             clusters_in_strip.append(cluster)
 
-    clusters_in_strip.sort(key=lambda cluster: cluster.horiz_center())  # non decreasing order
+    clusters_in_strip.sort(key=lambda cluster: cluster.vert_center())  # non decreasing order
     #print 'mid is ', mid
     #print 'dee is ', dee
     #print 'clusters_in_strip are '
@@ -28,6 +28,7 @@ def closest_pair_strip(list_of_clusters, mid, dee):
     ret_tuple = (float('inf'), -1, -1)
 
     for cluster in clusters_in_strip:
+        #print 'look at this cluster', clusters_in_strip.index(cluster)
         if clusters_in_strip.index(cluster) == strip_point_count - 1:
             break
         else:
@@ -66,13 +67,18 @@ def fast_closest_pair(list_of_clusters):
         split = int(math.floor(size/2.0))
         #print 'split is ', split
         left = list_of_clusters[:split]
+        #print 'left is ', left
         right = list_of_clusters[split:]
+        #print 'right is ', right
         left_tuple = fast_closest_pair(left)
+        #print 'left_tuple is ', left_tuple
         right_tuple = fast_closest_pair(right)
+        #print 'right_tuple is ', right_tuple
         right_list = list(right_tuple)
         right_list[1] += split
         right_list[2] += split
         right_tuple = tuple(right_list)
+        #print 'second right_tuple is ', right_tuple
         if left_tuple[0] < right_tuple[0]:
             l_and_r_min_tuple = left_tuple
         else:
@@ -80,6 +86,8 @@ def fast_closest_pair(list_of_clusters):
         m_minus_one = list_of_clusters[split-1].horiz_center()
         m_itself = list_of_clusters[split].horiz_center()
         middle = .5*(m_minus_one + m_itself)
+        #print 'middle is ', middle
+        #print 'dee is ', l_and_r_min_tuple[0]
         closest_strip_tuple = closest_pair_strip(list_of_clusters, middle, l_and_r_min_tuple[0])
         #print 'd is ', l_and_r_min_tuple[0]
         #print 'l_and_r_min_tuple[0] is ', l_and_r_min_tuple[0]
@@ -91,60 +99,12 @@ def fast_closest_pair(list_of_clusters):
     return ret_tuple
 
 '''
-p01 = cluster_class.Cluster(95014, 0, 0, 100, .5)
-p02 = cluster_class.Cluster(95014, 0, 1, 100, .5)
-p03 = cluster_class.Cluster(95014, 1, 1, 100, .5)
-
-test_list = [p01, p02, p03]
-
-print SlowClosestPair.SlowClosestPair(test_list)
-'''
-'''
-p01 = (0, 0)
-p02 = (0, 1)
-p03 = (1, 1)
-p04 = (1, 0)
-p05 = (-1, 1)
-p06 = (-1, 0)
-p07 = (-1, -1)
-p08 = (0, -1)
-p09 = (1, -1)
-p10 = (1, 1.1)
-
-
-
-
-
-
-#print SlowClosestPair(test_list)
+test_list = [(-0.5353004213408008, 0.8769450694142287), (-0.055573548533075945, -0.6886736187148934), (0.1000582810382562, 0.40804899650093307), (0.12508086036682675, 0.9796129245098657), (0.14368005661209637, -0.18625701316364385), (0.3661535415505568, -0.7519118099544913)]
+#test_list = [alg_cluster.Cluster(set([]), -0.535300421341, 0.876945069414, 1, 1), alg_cluster.Cluster(set([]), -0.0555735485331, -0.688673618715, 1, 1), alg_cluster.Cluster(set([]), 0.100058281038, 0.408048996501, 1, 1), alg_cluster.Cluster(set([]), 0.125080860367, 0.97961292451, 1, 1), alg_cluster.Cluster(set([]), 0.143680056612, -0.186257013164, 1, 1), alg_cluster.Cluster(set([]), 0.366153541551, -0.751911809954, 1, 1)]
+test_list_cluster = []
+for point in test_list:
+    cluster = cluster_class.Cluster(set([]), point[0], point[1], 1, 2)
+    test_list_cluster.append(cluster)
+print fast_closest_pair(test_list_cluster)
 '''
 
-p01 = cluster_class.Cluster(set([]), 0, 0, 100, .5)
-p02 = cluster_class.Cluster(set([]), 0, 1, 100, .5)
-p03 = cluster_class.Cluster(set([]), 1, 1, 100, .5)
-p04 = cluster_class.Cluster(set([]), 1, 0, 100, .5)
-p05 = cluster_class.Cluster(set([]), -1, 1, 100, .5)
-p06 = cluster_class.Cluster(set([]), -1, 0, 100, .5)
-p07 = cluster_class.Cluster(set([]), -1, -1, 100, .5)
-p08 = cluster_class.Cluster(set([]), 0, -1, 100, .5)
-p09 = cluster_class.Cluster(set([]), 1, -1, 100, .5)
-p10 = cluster_class.Cluster(set([]), 1, 1.1, 100, .5)
-test_list = [p01, p02, p03, p04, p05, p06, p07, p08, p09, p10]
-
-for element in range(10):
-    random.shuffle(test_list)
-    test_list.sort(key=lambda cluster: cluster.horiz_center())
-    #print test_list
-    print fast_closest_pair(test_list)
-
-#print fast_closest_pair(test_list)
-
-'''
-    for check in range(strip_point_count-2):
-        terminate = min(check+3, strip_point_count-1)
-        vee = check + 1
-        for item in range(vee, terminate + 1):
-            strip_tuple = SlowClosestPair.SlowClosestPair([clusters_in_strip[check], clusters_in_strip[item]])
-            if strip_tuple[0] < ret_tuple[0]:
-                ret_tuple = strip_tuple
-'''

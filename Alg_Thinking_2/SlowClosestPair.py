@@ -5,7 +5,8 @@ and kmeans_clustering
 and meet pylint coding guidelines
 '''
 import math
-import cluster_class
+#import cluster_class
+#import itertools
 
 def euclid_dist(p_one, p_two):
     '''
@@ -24,7 +25,8 @@ def slow_closest_pair(list_of_clusters):
             and i and j are the indexes of the two points that are the closest together
     '''
     ret_list = [float('inf'), -1, -1]
-    #all_combinations_two_points = [list(x) for x in itertools.combinations(list_of_clusters, 2)]
+    #all_combinations_two_clusters = [list(x) for x in itertools.combinations(list_of_clusters, 2)]
+    
     all_combinations_two_clusters = []
     for cluster in list_of_clusters:
         if list_of_clusters.index(cluster) == len(list_of_clusters)-1:
@@ -33,6 +35,7 @@ def slow_closest_pair(list_of_clusters):
         for item_y in range(next_cl_index, len(list_of_clusters)):
             all_combinations_two_clusters.append((cluster, list_of_clusters[item_y]))
     #print all_combinations_two_clusters
+    
     for cluster_tuple in all_combinations_two_clusters:
         points = []
         for cluster in cluster_tuple:
