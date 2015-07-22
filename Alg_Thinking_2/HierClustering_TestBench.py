@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 
 
 seed = 9        # set random seed so results can be reproducible
-size = 40       # number of points generated
-loops = 1000     # number of  test cases generated and checked
+size = 20       # number of points generated
+loops = 100     # number of  test cases generated and checked
 cluster_count = 7
 control_vector = [seed, size, loops, cluster_count]
 random.seed(control_vector[0])
@@ -64,6 +64,16 @@ for i, txt in enumerate(n):
 plt.xlim(-1, 1)
 plt.ylim(-1, 1)
 plt.title('Input: random points in -1 to 1 range')
+###
+plot_cluster = []
+for item in result:
+    point_x = item.horiz_center()
+    point_y = item.vert_center()
+    plot_cluster.append((point_x, point_y))
+
+xval, yval = zip(*plot_cluster)
+plt.scatter(xval, yval, s=60, c='g', alpha=0.5)
+####
 plt.draw()
 #wait = raw_input()  # hit enter to get the second plot shown
 
