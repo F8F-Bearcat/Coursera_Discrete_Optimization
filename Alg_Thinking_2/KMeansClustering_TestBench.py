@@ -7,7 +7,7 @@ The brute force design is viewed as the 'golden reference', easy to implement, b
 Run millions of verification cases to make sure FastClosestPair delivers the same results
 '''
 import random
-import HierClust
+import KMeansClust
 import numpy as np
 import matplotlib.pyplot as plt
 

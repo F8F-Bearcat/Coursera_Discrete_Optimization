@@ -5,18 +5,29 @@ This script implements the SlowClosestPair function from Homework 3, Project 3
 import math
 import itertools
 import FastClosestPair
-import cluster_class
+import alg_cluster
 import random
 
 
-def KMeansClust(point_list, num_clusters, num_iterations):
+def KMeansClust(cluster_list, num_clusters, num_iterations):
     '''
-    Input: list of points to build clusters around, and a final target number of clusters
-    Output: a list with final_cluster_count number of clusters
+    Input: list of clusters, a final target number of clusters and a number of iterations
+    Output: a list with num_clusters number of clusters
     '''
-    size = len(point_list)
-    cluster_list = []
+    size = len(cluster_list)
+    copy_clusters = [c.copy() for c in cluster_list]
+    copy_clusters.sort(key=lambda cluster: len(cluster.fips_codes()))
+    cluster_list = copy_clusters[-num_clusters:]
+    cluster_centers = []
+    for cluster in cluster_list:
+        cluster_centers.append([cluster.horiz_center(), cluster.vert_center()])
 
+    for item in range(1, num_iterations+1):
+        ret_clusters = []
+        for empty in range(1, num_clusters+1):
+            ret_clusters.append(alg_cluster.Cluster(set([]), 0, 0, 0, 0)
+        for loop_1 in range(size):
+            
 
 
     
