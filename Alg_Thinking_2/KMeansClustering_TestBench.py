@@ -7,9 +7,11 @@ The brute force design is viewed as the 'golden reference', easy to implement, b
 Run millions of verification cases to make sure FastClosestPair delivers the same results
 '''
 import random
+import alg_cluster
 import KMeansClust
 import numpy as np
 import matplotlib.pyplot as plt
+
 
 
 seed = 3        # set random seed so results can be reproducible
@@ -23,6 +25,7 @@ debug_db = {}
 pass_count = 0
 for cycle in range(loops):
 
+# make points
     all_points = []
     for item in range(size):    # make random test points in area bounded by +/- 1 in x,y  0,0 center
         point_x = 2*random.random() - 1  # scale the coordinates to (-1, 1)
@@ -31,7 +34,15 @@ for cycle in range(loops):
         all_points.append(point)
     all_points.sort()
 
-result = HierClust.HierClust(all_points, cluster_count )
+# make clusters 3 with 3 values for fips
+    all_clusters = []
+    for point in all_points:
+        if all_points.index(point) < 3:
+            new_cluster = alg_cluster.Cluster(set([300, 400, 500]), point[0], point[1], 1, .5)
+        else:
+            new_cluster = alg_cluster.Cluster(set([all_points.index(point)]), point[0], point[1], 1, .5)
+
+result = KMeansClust.kmeans_clustering(all_clusters, 3, 4 ) # three clusters, 4 iterations
 
     #1print slow_distance, fast_distance
 
@@ -39,7 +50,7 @@ print ' '
 print ' pass percentage is ', pass_count*100./(cycle+1)
 print ' '
 #print debug_db
-print 'result list is ', result
+#print 'result list is ', result
 
 #plot_me = debug_info[0]
 plot_me = all_points
@@ -52,8 +63,9 @@ plt.xlim(-1, 1)
 plt.ylim(-1, 1)
 plt.title('Input: random points in -1 to 1 range')
 plt.draw()
+plt.show()
 #wait = raw_input()  # hit enter to get the second plot shown
-
+'''
 plot_cluster = []
 for item in result:
     point_x = item.horiz_center()
@@ -70,6 +82,7 @@ plt.xlim(-1, 1)
 plt.ylim(-1, 1)
 plt.title('Hierarchial Clustering of Random Input')
 plt.show()
+'''
 
     #print all_points
 '''
