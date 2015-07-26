@@ -39,10 +39,12 @@ for cycle in range(loops):
     for point in all_points:
         if all_points.index(point) < 3:
             new_cluster = alg_cluster.Cluster(set([300, 400, 500]), point[0], point[1], 1, .5)
+            all_clusters.append(new_cluster)
         else:
             new_cluster = alg_cluster.Cluster(set([all_points.index(point)]), point[0], point[1], 1, .5)
+            all_clusters.append(new_cluster)
 
-result = KMeansClust.kmeans_clustering(all_clusters, 3, 4 ) # three clusters, 4 iterations
+result = KMeansClust.kmeans_clustering(all_clusters, 3, 1) # three clusters, 4 iterations
 
     #1print slow_distance, fast_distance
 
@@ -63,26 +65,28 @@ plt.xlim(-1, 1)
 plt.ylim(-1, 1)
 plt.title('Input: random points in -1 to 1 range')
 plt.draw()
-plt.show()
+
 #wait = raw_input()  # hit enter to get the second plot shown
-'''
-plot_cluster = []
-for item in result:
+
+all_clusters.sort(key=lambda cluster: len(cluster.fips_codes()))
+temp_result = all_clusters[-3:]
+plot_cluster_centers = []
+for item in temp_result:
     point_x = item.horiz_center()
     point_y = item.vert_center()
-    plot_cluster.append((point_x, point_y))
+    plot_cluster_centers.append((point_x, point_y))
 
 plt.figure()  #makes another window
-xval, yval = zip(*plot_cluster)
+xval, yval = zip(*plot_cluster_centers)
 plt.scatter(xval, yval, s=60, c='g', alpha=0.5)
 n = range(len(xval))
 for i, txt in enumerate(n):
     plt.annotate(txt, (xval[i]+.05, yval[i]+.05))
 plt.xlim(-1, 1)
 plt.ylim(-1, 1)
-plt.title('Hierarchial Clustering of Random Input')
+plt.title('KMeans Clusters')
 plt.show()
-'''
+
 
     #print all_points
 '''
