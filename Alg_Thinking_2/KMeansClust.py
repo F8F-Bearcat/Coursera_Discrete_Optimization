@@ -18,17 +18,19 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
     copy_clusters = [c.copy() for c in cluster_list]
 
     cluster_centers = []
-    copy_clusters.sort(key=lambda cluster: len(cluster.fips_codes()))
-    largest_initial_clusters = copy_clusters[-num_clusters:]
+    copy_clusters.sort(key=lambda cluster: len(cluster.fips_codes()), reverse=True)
+    largest_initial_clusters = copy_clusters[:num_clusters]
     for cluster in largest_initial_clusters:
         cluster_centers.append([cluster.horiz_center(), cluster.vert_center()])
 
     for item in range(num_iterations):
         ret_clusters = []
         for count in range(num_clusters):
-            ret_clusters.append(alg_cluster.Cluster(set([]), 0, 0, 0, 0))
+            ret_clusters.append(alg_cluster.Cluster(set([]), 0, 0, 0, 0).copy())
 
         for loop in range(len(cluster_list)):
+            print 'loop, ret_clusters '
+            print loop, ret_clusters
             min_dist = float('inf')
             corresponding_index = -1
             check_clust_dist_x = copy_clusters[loop].horiz_center()
@@ -36,18 +38,25 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
             check_me = (check_clust_dist_x, check_clust_dist_y)
             #print 'cluster_centers are '
             #print cluster_centers
-            for point in cluster_centers:
-                #print 'index is ', cluster_centers.index(point)
-                #print 'point[0] and type(point[0]) are ', point[0], type(point[0])
-                #print 'check_me[0] and type(check_me[0]) are ', check_me[0], type(check_me[0])
-                #print 'blah'
-                #print 'blah'
-                #print 'blah'
-                compare_dist_squared = (point[0]-check_me[0])**2 + (point[1]-check_me[1])**2
-                if compare_dist_squared < min_dist:
-                    min_dist = compare_dist_squared
-                    corresponding_index = cluster_centers.index(point)
-            ret_clusters[corresponding_index].merge_clusters(copy_clusters[loop])
+            if loop < num_clusters:
+                ret_clusters[loop].merge_clusters(copy_clusters[loop])
+            else:
+                for point in cluster_centers:
+                    #print 'index is ', cluster_centers.index(point)
+                    #print 'point[0] and type(point[0]) are ', point[0], type(point[0])
+                    #print 'check_me[0] and type(check_me[0]) are ', check_me[0], type(check_me[0])
+                    #print 'blah'
+                    #print 'blah'
+                    #print 'blah'
+                    if cluster_centers.index(point) < num_clusters:
+                        print 'I do not think I ever get here...'
+                        ret_clusters[cluster_centers.index(point)].merge_clusters(copy_clusters[loop])
+                    else:
+                        compare_dist_squared = (point[0]-check_me[0])**2 + (point[1]-check_me[1])**2
+                        if compare_dist_squared < min_dist:
+                            min_dist = compare_dist_squared
+                            corresponding_index = cluster_centers.index(point)
+                ret_clusters[corresponding_index].merge_clusters(copy_clusters[loop])
 
             for index_center in range(num_clusters):
                 new_x = ret_clusters[index_center].horiz_center()
