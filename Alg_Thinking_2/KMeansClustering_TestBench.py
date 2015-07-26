@@ -45,7 +45,9 @@ for cycle in range(loops):
             all_clusters.append(new_cluster)
 
 result = KMeansClust.kmeans_clustering(all_clusters, 3, 1) # three clusters, 4 iterations
-
+print ' '
+print 'resulting clusters are ', result
+print ' '
     #1print slow_distance, fast_distance
 
 print ' '
