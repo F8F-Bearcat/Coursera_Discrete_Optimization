@@ -28,6 +28,7 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
         for count in range(num_clusters):
             ret_clusters.append(alg_cluster.Cluster(set([]), 0, 0, 0, 0).copy())
 
+        merge_indexes = []
         for loop in range(len(cluster_list)):
             #print 'loop, ret_clusters '
             #print loop, ret_clusters
@@ -38,12 +39,11 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
             check_me = (check_clust_dist_x, check_clust_dist_y)
             #print 'cluster_centers are '
             #print cluster_centers
-            merge_indexes = []
             # Format list of lists: [ [to, from], etc] use the merge method 
             # to merge the from cluster into the to cluster
             if (item == 0) and (loop < num_clusters):
                 merge_indexes.append([loop, loop])
-                print 'merge_indexes is ', merge_indexes
+                #print 'merge_indexes is ', merge_indexes
             else:
                 for point in cluster_centers:
                     #print 'index is ', cluster_centers.index(point)
@@ -59,18 +59,25 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
                 merge_indexes.append([corresponding_index, loop])
 
             # update/merge all the clusters now, then create the new cluster centers
-            for ele in merge_indexes:
-                print ' '
-                print 'ele is ', ele
-                print 'index, ele[0] is ', merge_indexes.index(ele), ele[0]
-                print 'index, ele[1] is ', merge_indexes.index(ele), ele[1]
-                ret_clusters[ele[0]].merge_clusters(copy_clusters[ele[1]])
-            # create the new cluster_centers    
-            for index_center in range(num_clusters):
-                new_x = ret_clusters[index_center].horiz_center()
-                new_y = ret_clusters[index_center].vert_center()
-                cluster_centers[index_center] = [new_x, new_y]
-            # make a new set of copy clusters
-            copy_clusters = [c.copy() for c in cluster_list]
+            #print 'merge_indexes prior to cluster merge are '
+            #print merge_indexes
+            last_loop = len(cluster_list)-1
+            if loop == last_loop:
+                for ele in merge_indexes:
+                    print 'ele is ', ele
+                    print 'merge into this ', ret_clusters[ele[0]].fips_codes()
+                    print 'from this ', copy_clusters[ele[1]].fips_codes()
+                    #print ' '
+                    #print 'ele is ', ele
+                    #print 'index, ele[0] is ', merge_indexes.index(ele), ele[0]
+                    #print 'index, ele[1] is ', merge_indexes.index(ele), ele[1]
+                    ret_clusters[ele[0]].merge_clusters(copy_clusters[ele[1]])
+                # create the new cluster_centers    
+                for index_center in range(num_clusters):
+                    new_x = ret_clusters[index_center].horiz_center()
+                    new_y = ret_clusters[index_center].vert_center()
+                    cluster_centers[index_center] = [new_x, new_y]
+                # make a new set of copy clusters
+                copy_clusters = [c.copy() for c in cluster_list]
 
     return ret_clusters
