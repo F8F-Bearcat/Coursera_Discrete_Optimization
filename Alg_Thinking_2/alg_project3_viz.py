@@ -14,10 +14,11 @@ import math
 import random
 import urllib2
 import alg_cluster
+import csv_to_cluster
 
 # conditional imports
 if DESKTOP:
-    import alg_project3_solution      # desktop project solution
+    import HierClust      # desktop project solution
     import alg_clusters_matplotlib
 else:
     #import userXX_XXXXXXXX as alg_project3_solution   # CodeSkulptor project solution
@@ -44,6 +45,7 @@ def load_data_table(data_url):
     Import a table of county-based cancer risk data
     from a csv format file
     """
+    '''
     data_file = urllib2.urlopen(data_url)
     data = data_file.read()
     data_lines = data.split('\n')
@@ -51,6 +53,8 @@ def load_data_table(data_url):
     data_tokens = [line.split(',') for line in data_lines]
     return [[tokens[0], float(tokens[1]), float(tokens[2]), int(tokens[3]), float(tokens[4])] 
             for tokens in data_tokens]
+    '''
+    return csv_to_cluster.csv_to_cl()
 
 
 ############################################################
@@ -94,16 +98,23 @@ def run_example():
     Set DESKTOP = True/False to use either matplotlib or simplegui
     """
     data_table = load_data_table(DATA_3108_URL)
-    
+ 
+    print 'number of clusters is ', len(data_table)
+    print data_table
+    '''
     singleton_list = []
     for line in data_table:
         singleton_list.append(alg_cluster.Cluster(set([line[0]]), line[1], line[2], line[3], line[4]))
-        
-    cluster_list = sequential_clustering(singleton_list, 15)    
+    '''    
+    #cluster_list = sequential_clustering(singleton_list, 15)
+    cluster_list = sequential_clustering(data_table, 15)    
     print "Displaying", len(cluster_list), "sequential clusters"
 
     #cluster_list = alg_project3_solution.hierarchical_clustering(singleton_list, 9)
     #print "Displaying", len(cluster_list), "hierarchical clusters"
+
+    cluster_list = HierClust.hierarchical_clustering(data_table, 9)
+    print "Displaying", len(cluster_list), "hierarchical clusters"    
 
     #cluster_list = alg_project3_solution.kmeans_clustering(singleton_list, 9, 5)   
     #print "Displaying", len(cluster_list), "k-means clusters"
@@ -111,8 +122,8 @@ def run_example():
             
     # draw the clusters using matplotlib or simplegui
     if DESKTOP:
-        alg_clusters_matplotlib.plot_clusters(data_table, cluster_list, False)
-        #alg_clusters_matplotlib.plot_clusters(data_table, cluster_list, True)  #add cluster centers
+        #alg_clusters_matplotlib.plot_clusters(data_table, cluster_list, False)
+        alg_clusters_matplotlib.plot_clusters(data_table, cluster_list, True)  #add cluster centers
     else:
         alg_clusters_simplegui.PlotClusters(data_table, cluster_list)   # use toggle in GUI to add cluster centers
     
