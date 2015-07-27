@@ -87,8 +87,8 @@ plt.ylim(50, 450)
 plt.title('Input: Coursera test case points')
 plt.draw()
 
-all_clusters.sort(key=lambda cluster: len(cluster.fips_codes()))
-temp_result = all_clusters[-3:]
+all_clusters.sort(key=lambda cluster: cluster.total_population())
+temp_result = all_clusters[-5:]
 plot_cluster_centers = []
 for item in temp_result:
     point_x = item.horiz_center()
@@ -103,7 +103,7 @@ for i, txt in enumerate(n):
     plt.annotate(txt, (xval[i]+.05, yval[i]+.05))
 plt.xlim(0, 1000)
 plt.ylim(50, 450)
-plt.title('Coursera test case initial biggest clusters')
+plt.title('Coursera test case initial 5 biggest clusters')
 plt.draw()
 
 all_clusters = result

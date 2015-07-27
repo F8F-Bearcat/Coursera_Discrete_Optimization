@@ -18,7 +18,7 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
     copy_clusters = [c.copy() for c in cluster_list]
 
     cluster_centers = []
-    copy_clusters.sort(key=lambda cluster: len(cluster.fips_codes()), reverse=True)
+    copy_clusters.sort(key=lambda cluster: cluster.total_population(), reverse=True)
     largest_initial_clusters = copy_clusters[:num_clusters]
     for cluster in largest_initial_clusters:
         cluster_centers.append([cluster.horiz_center(), cluster.vert_center()])
@@ -64,9 +64,9 @@ def kmeans_clustering(cluster_list, num_clusters, num_iterations):
             last_loop = len(cluster_list)-1
             if loop == last_loop:
                 for ele in merge_indexes:
-                    print 'ele is ', ele
-                    print 'merge into this ', ret_clusters[ele[0]].fips_codes()
-                    print 'from this ', copy_clusters[ele[1]].fips_codes()
+                    ##print 'ele is ', ele
+                    ##print 'merge into this ', ret_clusters[ele[0]].fips_codes()
+                    ##print 'from this ', copy_clusters[ele[1]].fips_codes()
                     #print ' '
                     #print 'ele is ', ele
                     #print 'index, ele[0] is ', merge_indexes.index(ele), ele[0]
