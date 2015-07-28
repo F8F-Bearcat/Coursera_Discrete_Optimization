@@ -97,7 +97,7 @@ print 'result list is ', result
 
 mpl_color_cycle = ['b', 'y', 'c', 'm', 'k', 'g']
 
-#plotting loop, one cluster at a time
+#plotting loop, one cluster at a time, 
 for cluster in result:
     pt_color, mpl_color_cycle = next_color(mpl_color_cycle)
     fips_points, cluster_center = fips_to_points(cluster, cluster_list)
@@ -108,6 +108,8 @@ for cluster in result:
 
 plt.title('111 Input clusters and grouped clusters')
 plt.show()
+
+'''
 ###
 plot_cluster = []
 for item in result:
@@ -136,7 +138,7 @@ plt.title('Hierarchial Clustering of 111 counties')
 plt.show()
 
     #print all_points
-'''
+
     cluster_list = []
     for point in all_points:
         first_cluster = cluster_class.Cluster(95014, point[0], point[1], 100, .5)
