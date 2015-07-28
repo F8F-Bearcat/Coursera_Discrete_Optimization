@@ -13,6 +13,33 @@ import csv_to_cluster
 import numpy as np
 import matplotlib.pyplot as plt
 
+def fips_to_points(cluster, cluster_list):
+    '''
+    n squared brute force - won't scale...
+    cluster_list input is a list of singletons (only one area code)
+    returns a list of points, and cluster center
+    '''
+    points = []
+    for ele in cluster.fips_codes():
+        for cl in cluster_list:
+            if ele == list(cl.fips_codes())[0]:   #[0] gets the single entry out of the set
+                point_x = cl.horiz_center()
+                point_y = cl.vert_center()
+                point = [point_x, point_y]
+                points.append(point)
+    cluster_center = [cluster.horiz_center(), cluster.vert_center()]
+    return points, cluster_center
+
+def next_color(color_list):
+    '''
+    takes color list, returns color, and shifts color list
+    Output: color (matplotlib color string, one char) and modified color_list
+    '''
+    color = color_list.pop()
+    color_list.insert(0, color)
+    return color, color_list
+
+
 
 seed = 9        # set random seed so results can be reproducible
 size = 20       # number of points generated
@@ -68,16 +95,19 @@ print ' '
 #print debug_db
 print 'result list is ', result
 
-#plot_me = debug_info[0]
-plot_me = all_points
-xval, yval = zip(*plot_me)
-plt.scatter(xval, yval, s=20, c='b', alpha=0.5)
-#n = range(len(xval))
-#for i, txt in enumerate(n):
-#    plt.annotate(txt, (xval[i]+.02, yval[i]+.02))
-#plt.xlim(-1, 1)
-#plt.ylim(-1, 1)
+mpl_color_cycle = ['b', 'y', 'c', 'm', 'k', 'g']
+
+#plotting loop, one cluster at a time
+for cluster in result:
+    pt_color, mpl_color_cycle = next_color(mpl_color_cycle)
+    fips_points, cluster_center = fips_to_points(cluster, cluster_list)
+    xval, yval = zip(*fips_points)
+    plt.scatter(xval, yval, s=20, c=pt_color, alpha=0.9)
+    plt.scatter(cluster_center[0], cluster_center[1], s=80, c='r', alpha=0.5)
+    plt.draw()
+
 plt.title('111 Input clusters and grouped clusters')
+plt.show()
 ###
 plot_cluster = []
 for item in result:
@@ -85,10 +115,7 @@ for item in result:
     point_y = item.vert_center()
     plot_cluster.append((point_x, point_y))
 
-xval, yval = zip(*plot_cluster)
-plt.scatter(xval, yval, s=80, c='r', alpha=0.5)
-####
-plt.draw()
+
 #wait = raw_input()  # hit enter to get the second plot shown
 
 plot_cluster = []
@@ -114,4 +141,10 @@ plt.show()
     for point in all_points:
         first_cluster = cluster_class.Cluster(95014, point[0], point[1], 100, .5)
         cluster_list.append(first_cluster)
+
+#n = range(len(xval))
+#for i, txt in enumerate(n):
+#    plt.annotate(txt, (xval[i]+.02, yval[i]+.02))
+#plt.xlim(-1, 1)
+#plt.ylim(-1, 1)
 '''
