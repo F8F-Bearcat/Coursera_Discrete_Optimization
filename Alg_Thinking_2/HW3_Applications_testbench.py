@@ -107,7 +107,7 @@ for cluster in result:
     plt.scatter(cluster_center[0], cluster_center[1], s=80, c='r', alpha=0.5)
     plt.draw()
 
-plt.title('111 Input clusters hierarchical_clustering')
+plt.title('3108 Input clusters hierarchical_clustering')
 plt.draw()
 
 result = KMeansClust.kmeans_clustering(cluster_list, 9, 5)
@@ -121,7 +121,7 @@ for cluster in result:
     plt.scatter(cluster_center[0], cluster_center[1], s=80, c='r', alpha=0.5)
     plt.draw()
 
-plt.title('111 Input clusters kmeans_clustering')
+plt.title('3108 Input clusters kmeans_clustering')
 plt.show()
 
 '''
