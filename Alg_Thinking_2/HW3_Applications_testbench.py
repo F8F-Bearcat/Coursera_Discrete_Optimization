@@ -8,6 +8,7 @@ Run millions of verification cases to make sure FastClosestPair delivers the sam
 '''
 import random
 import HierClust
+import KMeansClust
 import cluster_class
 import csv_to_cluster
 import numpy as np
@@ -106,7 +107,21 @@ for cluster in result:
     plt.scatter(cluster_center[0], cluster_center[1], s=80, c='r', alpha=0.5)
     plt.draw()
 
-plt.title('111 Input clusters and grouped clusters')
+plt.title('111 Input clusters hierarchical_clustering')
+plt.draw()
+
+result = KMeansClust.kmeans_clustering(cluster_list, 9, 5)
+plt.figure()
+
+for cluster in result:
+    pt_color, mpl_color_cycle = next_color(mpl_color_cycle)
+    fips_points, cluster_center = fips_to_points(cluster, cluster_list)
+    xval, yval = zip(*fips_points)
+    plt.scatter(xval, yval, s=20, c=pt_color, alpha=0.9)
+    plt.scatter(cluster_center[0], cluster_center[1], s=80, c='r', alpha=0.5)
+    plt.draw()
+
+plt.title('111 Input clusters kmeans_clustering')
 plt.show()
 
 '''
