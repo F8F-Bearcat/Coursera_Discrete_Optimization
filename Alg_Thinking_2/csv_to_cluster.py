@@ -8,7 +8,7 @@ def csv_to_cl():
     '''
     reads csv file and makes a list of singleton cluster_list
     '''
-    CANCER_DATA = 'C://Users//andyd//Desktop//unifiedCancerData_111.csv'  #This is the file primarly used
+    CANCER_DATA = 'C://Users//andyd//Desktop//unifiedCancerData_3108.csv'  #This is the file primarly used
     FILE_HANDLE = open(CANCER_DATA, 'r')
     reader = csv.reader(FILE_HANDLE)
 
