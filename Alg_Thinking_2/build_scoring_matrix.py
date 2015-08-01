@@ -23,8 +23,8 @@ def build_scoring_matrix(alphabet, diag_score, off_diag_score, dash_score):
             elif key == column:
                 col_d[column] = diag_score
             else:
-                col_d[column] = off_diag_score
-
+                col_d[column] = off_diag_score  # this is probably the most common case
+                                                # performance better if first?
         scoring_matrix_d[key] = col_d
 
     return scoring_matrix_d
