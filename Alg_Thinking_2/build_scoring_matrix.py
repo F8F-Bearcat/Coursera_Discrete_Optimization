@@ -28,11 +28,4 @@ def build_scoring_matrix(alphabet, diag_score, off_diag_score, dash_score):
         scoring_matrix_d[key] = col_d
 
     return scoring_matrix_d
-
-
-# Test function
-ALPHABET = {'T', 'A', 'G'}
-
-scoring_matrix = build_scoring_matrix(ALPHABET, 5, 2, -2)
-
-print scoring_matrix
+    
