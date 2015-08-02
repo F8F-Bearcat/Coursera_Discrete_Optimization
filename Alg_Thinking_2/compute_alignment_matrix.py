@@ -33,6 +33,9 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
     Inputs: s_x, s_y are string / sequence inputs
     Outputs:
     '''
+    if s_x == '' or s_y == '':
+        return [[0]]
+
     build_s_matrix, col_d = {}, {}
     if global_flag == True:         # set upper left corner to 0, S[0,0] = 0
         col_d[0] = 0                # this will become the upper left corner
@@ -56,6 +59,21 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
                 col_d[column] = max(first, second, third)
             build_s_matrix[row] = col_d
 
+        out = []                                # kludgy assignment did not specifiy type for 
+        for ele in build_s_matrix.items():      # matrix. I did dict of dict. they wanted
+            row, columns = [], []               # lists apparently. This converts to lists...
+            row.append(ele[0])
+            #print 'first row is ', row
+            #print 'ele[1].items()', ele[1].items()
+            for item in ele[1].items():
+                columns.append(item[1])
+            #print 'columns are ', columns
+            out.append(columns)
+            #print 'second row is ', row
+            #out.append(row)
+            #print 'out is ', out
+        return out
+
     else:
         col_d[0] = 0                # this will become the upper left corner
         build_s_matrix[0] = col_d
@@ -75,7 +93,6 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
                 col_d[0] = 0
             else:
                 col_d[0] = value
-            col_d[0] = build_s_matrix[row-1][0] + scoring_mat[s_x[row-1]]['-']
             build_s_matrix[row] = col_d
 
         for row in range(1, len(s_x)+1):
@@ -91,7 +108,16 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
                     col_d[column] = max(first, second, third)
             build_s_matrix[row] = col_d
 
-    return build_s_matrix
+        out = []
+        for ele in build_s_matrix.items():
+            row, columns = [], []
+            row.append(ele[0])
+            #print 'ele[1].items()', ele[1].items()
+            for item in ele[1].items():
+                columns.append(item[1])
+            out.append(columns)
+            #print 'out in function is ', out
+        return out
 
 
 # Test function
@@ -104,6 +130,6 @@ print scoring_matrix
 seq_x = 'AC'
 seq_y = 'TAG'
 
-s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, True)
+s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, False)
 print 'S matrix is '
 print s_matrix
