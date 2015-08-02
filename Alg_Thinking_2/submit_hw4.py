@@ -93,7 +93,6 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
                 col_d[0] = 0
             else:
                 col_d[0] = value
-            col_d[0] = build_s_matrix[row-1][0] + scoring_mat[s_x[row-1]]['-']
             build_s_matrix[row] = col_d
 
         for row in range(1, len(s_x)+1):
@@ -122,7 +121,7 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
 
 
 
-
+'''
 # Test function
 ALPHABET = {'T', 'A', 'G', 'C'}
 
@@ -133,6 +132,7 @@ print scoring_matrix
 seq_x = 'AC'
 seq_y = 'TAG'
 
-s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, True)
+s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, False)
 print 'S matrix is '
 print s_matrix
+'''
