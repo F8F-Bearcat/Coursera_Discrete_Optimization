@@ -31,24 +31,24 @@ def build_scoring_matrix(alphabet, diag_score, off_diag_score, dash_score):
 def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
     '''
     Inputs: s_x, s_y are string / sequence inputs
-    Outputs:
+    Outputs: is a list of lists [ [0, -4, -8, -12], [then row 1's column entries], [ etc.]]
     '''
     if s_x == '' or s_y == '':
         return [[0]]
 
-    build_s_matrix, col_d = {}, {}
+    build_s_matrix, col_d = [], []
     if global_flag == True:         # set upper left corner to 0, S[0,0] = 0
-        col_d[0] = 0                # this will become the upper left corner
-        build_s_matrix[0] = col_d
+        col_d.append(0)                # this will become the upper left corner
+        build_s_matrix.append(col_d)
 
         for column in range(1, len(s_y)+1):   #initialize top row
-            col_d[column] = build_s_matrix[0][column-1] + scoring_mat['-'][s_y[column-1]]
-            build_s_matrix[0] = col_d
+            col_d.append(build_s_matrix[0][column-1] + scoring_mat['-'][s_y[column-1]])
+        build_s_matrix.append(col_d)
 
         for row in range(1, len(s_x)+1):      #initialize left column
-            col_d = {}
-            col_d[0] = build_s_matrix[row-1][0] + scoring_mat[s_x[row-1]]['-']
-            build_s_matrix[row] = col_d
+            col_d = []
+            col_d.append(build_s_matrix[row-1][0] + scoring_mat[s_x[row-1]]['-'])
+            build_s_matrix.append(col_d)
 
         for row in range(1, len(s_x)+1):
             col_d = build_s_matrix[row]   # initial column exists, build on that rather than replace
@@ -56,23 +56,10 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
                 first = build_s_matrix[row-1][column-1] + scoring_mat[s_x[row-1]][s_y[column-1]]
                 second = build_s_matrix[row-1][column] + scoring_mat[s_x[row-1]]['-']
                 third = build_s_matrix[row][column-1] + scoring_mat['-'][s_y[column-1]]
-                col_d[column] = max(first, second, third)
-            build_s_matrix[row] = col_d
+                col_d.append(max(first, second, third))
+            build_s_matrix.append(col_d)
 
-        out = []                                # kludgy assignment did not specifiy type for 
-        for ele in build_s_matrix.items():      # matrix. I did dict of dict. they wanted
-            row, columns = [], []               # lists apparently. This converts to lists...
-            row.append(ele[0])
-            #print 'first row is ', row
-            #print 'ele[1].items()', ele[1].items()
-            for item in ele[1].items():
-                columns.append(item[1])
-            #print 'columns are ', columns
-            out.append(columns)
-            #print 'second row is ', row
-            #out.append(row)
-            #print 'out is ', out
-        return out
+        return build_s_matrix
 
     else:
         col_d[0] = 0                # this will become the upper left corner
@@ -130,6 +117,6 @@ print scoring_matrix
 seq_x = 'AC'
 seq_y = 'TAG'
 
-s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, False)
+s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, True)
 print 'S matrix is '
 print s_matrix
