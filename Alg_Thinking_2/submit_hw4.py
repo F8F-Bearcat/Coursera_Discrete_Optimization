@@ -119,7 +119,53 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
             #print 'out in function is ', out
         return out
 
+def compute_global_alignment(seq_x, seq_y, score_m, align_m):
+    '''
+    Inputs:
+    Outputs:
+    '''
+    len_x = len(seq_x)
+    len_y = len(seq_y)
+    if min(len_x, len_y) == 0:
+        return (0, '', '')       # check for the null input case to find expected return format
 
+    x_prime, y_prime = '', ''
+
+    while len_x > 0 and len_y > 0:
+        score = score_m[seq_x[len_x-1]][seq_y[len_y-1]]
+        if align_m[len_x][len_y] == align_m[len_x-1][len_y-1]+score:
+            x_prime = seq_x[len_x-1] + x_prime
+            y_prime = seq_y[len_y-1] + y_prime
+            len_x -= 1
+            len_y -= 1
+        else:
+            score = score_m[seq_x[len_x-1]]['-']
+            if align_m[len_x][len_y] == align_m[len_x-1][len_y]+score:
+                x_prime = seq_x[len_x-1] + x_prime
+                y_prime = '-' + y_prime
+                len_x -= 1
+            else:
+                x_prime = '-' + x_prime
+                y_prime = seq_y[len_y-1] + y_prime
+                len_y -= 1
+    while len_x > 0:
+        x_prime = seq_x[len_x-1] + x_prime
+        y_prime = '-' + y_prime
+        len_x -= 1
+
+    while len_y > 0:
+        x_prime = '-' + x_prime
+        y_prime = seq_y[len_y-1] + y_prime
+        len_y -= 1
+
+    #print 'len(x_prime) is ', len(x_prime)
+    #print 'len(seq_x) is ', len(seq_x)
+    #print 'len(seq_y) is ', len(seq_y)
+    alignment_score = 0
+    for index in range(len(x_prime)):
+        alignment_score += score_m[x_prime[index]][y_prime[index]]
+
+    return (alignment_score, x_prime, y_prime)
 
 '''
 # Test function
