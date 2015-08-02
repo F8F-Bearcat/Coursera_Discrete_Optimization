@@ -42,7 +42,39 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
         build_s_matrix.append(col_d)
 
         for column in range(1, len(s_y)+1):   #initialize top row
-            col_d.append(build_s_matrix[0][column-1] + scoring_mat['-'][s_y[column-1]])
+            value = build_s_matrix[0][column-1] + scoring_mat['-'][s_y[column-1]]
+            prev_col_d = build_s_matrix.pop()
+            prev_col_d.append(value)
+            build_s_matrix.append(prev_col_d)
+        #build_s_matrix.append(prev_col_d)
+
+        for row in range(1, len(s_x)+1):      #initialize left column
+            col_d = []
+            col_d.append(build_s_matrix[row-1][0] + scoring_mat[s_x[row-1]]['-'])
+            build_s_matrix.append(col_d)
+
+        for row in range(1, len(s_x)+1):
+            #col_d = build_s_matrix[row]   # initial column exists, build on that rather than replace
+            for column in range(1, len(s_y)+1):
+                first = build_s_matrix[row-1][column-1] + scoring_mat[s_x[row-1]][s_y[column-1]]
+                second = build_s_matrix[row-1][column] + scoring_mat[s_x[row-1]]['-']
+                third = build_s_matrix[row][column-1] + scoring_mat['-'][s_y[column-1]]
+                #prev_col_d = build_s_matrix.pop()
+                build_s_matrix[row].append(max(first, second, third))
+            #build_s_matrix.append(col_d)
+
+        return build_s_matrix
+
+    else:
+        col_d.append(0)                # this will become the upper left corner
+        build_s_matrix.append(col_d)
+
+        for column in range(1, len(s_y)+1):   #initialize top row
+            value = build_s_matrix[0][column-1] + scoring_mat['-'][s_y[column-1]]
+            if value < 0:
+                col_d.append(0)
+            else:
+                col_d.append(value)
         build_s_matrix.append(col_d)
 
         for row in range(1, len(s_x)+1):      #initialize left column
@@ -60,10 +92,6 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
             build_s_matrix.append(col_d)
 
         return build_s_matrix
-
-    else:
-        col_d[0] = 0                # this will become the upper left corner
-        build_s_matrix[0] = col_d
 
         for column in range(1, len(s_y)+1):   #initialize top row
             value = build_s_matrix[0][column-1] + scoring_mat['-'][s_y[column-1]]
