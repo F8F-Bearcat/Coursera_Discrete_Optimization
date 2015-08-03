@@ -131,3 +131,80 @@ def compute_global_alignment(seq_x, seq_y, score_m, align_m):
         alignment_score += score_m[x_prime[index]][y_prime[index]]
 
     return (alignment_score, x_prime, y_prime)
+
+def score_alignment(seq_x, seq_y, scoring_matrix):
+    '''
+    Inputs:
+    Outputs:
+    '''
+    if min(len(seq_x), len(seq_y)) == 0:
+        return 0
+
+    score = 0
+    for pointer in range(len(seq_x)):
+        score += scoring_matrix[seq_x[pointer]][seq_y[pointer]]
+
+    return score
+
+def compute_local_alignment(seq_x, seq_y, score_m, align_m):
+    '''
+    Inputs:
+    Outputs:
+    '''
+    len_x = len(seq_x)
+    len_y = len(seq_y)
+    if min(len_x, len_y) == 0:
+        return (0, '', '')       # check for the null input case to find expected return format
+
+    # find maximum entry in the alignment matrix
+    x_index_max, y_index_max = -1, -1
+    max_val = -float('inf')
+
+    for entry in align_m:
+        if max(entry) > max_val:
+            max_val = max(entry)
+            x_index_max = align_m.index(entry)
+    y_index_max = align_m[x_index_max].index(max_val)
+
+    x_prime, y_prime = '', ''
+    len_x = x_index_max
+    len_y = y_index_max
+
+    while len_x > 0 and len_y > 0:
+        score = score_m[seq_x[len_x-1]][seq_y[len_y-1]]
+        if align_m[len_x][len_y] == align_m[len_x-1][len_y-1]+score:
+            x_prime = seq_x[len_x-1] + x_prime
+            y_prime = seq_y[len_y-1] + y_prime
+            len_x -= 1
+            len_y -= 1
+            if align_m[len_x][len_y] == 0:
+                return (score_alignment(x_prime, y_prime, score_m), x_prime, y_prime)
+        else:
+            score = score_m[seq_x[len_x-1]]['-']
+            if align_m[len_x][len_y] == align_m[len_x-1][len_y]+score:
+                x_prime = seq_x[len_x-1] + x_prime
+                y_prime = '-' + y_prime
+                len_x -= 1
+                if align_m[len_x][len_y] == 0:
+                    return (score_alignment(x_prime, y_prime, score_m), x_prime, y_prime)
+            else:
+                x_prime = '-' + x_prime
+                y_prime = seq_y[len_y-1] + y_prime
+                len_y -= 1
+                if align_m[len_x][len_y] == 0:
+                    return (score_alignment(x_prime, y_prime, score_m), x_prime, y_prime)
+    while len_x > 0:
+        x_prime = seq_x[len_x-1] + x_prime
+        y_prime = '-' + y_prime
+        len_x -= 1
+        if align_m[len_x][0] == 0:
+            return (score_alignment(x_prime, y_prime, score_m), x_prime, y_prime)
+
+    while len_y > 0:
+        x_prime = '-' + x_prime
+        y_prime = seq_y[len_y-1] + y_prime
+        len_y -= 1
+        if align_m[0][len_y] == 0:
+            return (score_alignment(x_prime, y_prime, score_m), x_prime, y_prime)
+
+    return None  #should never get here
