@@ -35,3 +35,8 @@ Z  -2  -2  -1   2 -11   6   6  -4   0  -5  -5  -2  -4 -11  -3  -3  -4 -11  -8  -
 X  -2  -4  -2  -4  -7  -3  -3  -4  -4  -3  -5  -4  -4  -6  -4  -2  -2  -9  -6  -3  -3  -3  -4 -5
 -  -5 -5   -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5  -5 -100
 
+result from HW4 applications question 1:
+(875, 'HSGVNQLGGVFVNGRPLPDSTRQKIVELAHSGARPCDISRILQVSNGCVSKILGRYYETGSIRPRAIGGSKPRVATPEVVSKIAQYKRECPSIFAWEIRDRLLSEGVCTNDNIPSVSSINRVLRNLASEK-QQ',
+      'HSGVNQLGGVFVGGRPLPDSTRQKIVELAHSGARPCDISRILQVSNGCVSKILGRYYETGSIRPRAIGGSKPRVATAEVVSKISQYKRECPSIFAWEIRDRLLQENVCTNDNIPSVSSINRVLRNLAAQKEQQ')
+
+result local alignment strings 133 characters long.  The alphabet is 23 characters long.

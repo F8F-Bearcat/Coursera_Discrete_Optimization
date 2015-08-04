@@ -83,7 +83,7 @@ def compute_alignment_matrix(s_x, s_y, scoring_mat, global_flag):
                 build_s_matrix[row].append(max(first, second, third, 0))  # if above neg, append 0
 
         return build_s_matrix
-
+'''
 # Test function
 ALPHABET = {'T', 'A', 'G', 'C'}
 
@@ -97,3 +97,4 @@ seq_y = 'TAG'
 s_matrix = compute_alignment_matrix(seq_x, seq_y, scoring_matrix, False)
 print 'S matrix is '
 print s_matrix
+'''
