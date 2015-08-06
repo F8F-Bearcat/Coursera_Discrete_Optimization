@@ -1,13 +1,14 @@
-11: set(['forebay', 'briefly', 'furrily', 'fireman', 'firebox', 'fifthly', 'wireway', 'fadedly', 'fishily', 'miserly', 'firemen', 'firebug', 'dirtily', 'mirkily', 'firearm', 'chiefly', 'direful', 'virelay', 'firedog', 'fireclay', 'fierily', 'finally', 'firepan', 'fleetly', 'vixenly', 'virally', 'filmily']), 
+diag_score = 2
+off_diag_score = -1
+dash_score = 0
 
+set(['irefully', 'fiercely', 'fireclay'])
+set([])
+set(['frozenly', 'unfairly', 'formerly', 'ireful', 'firehall', 'refly', 'facilely', 'directly', 'fidelity', 'dirgeful', 'firmly', 'fireplug', 'affinely', 'forkedly', 'firelock', 'fitfully', 'fivefold', 'futilely', 'virelays', 'felinely', 'direly', 'fireless', 'forcedly', 'liefly', 'friendly', 'fairly', 'whitefly', 'freakily', 'foreplay', 'reflexly', 'virilely', 'forefeel', 'reflying', 'horsefly', 'frenzily', 'forefelt', 'finitely', 'impurely', 'greenfly', 'freely', 'forceful', 'infirmly', 'ruefully', 'forelady', 'finely', 'entirely', 'fireball', 'firefang'])
 
-set(['tiredly', 'fireplug', 'forkedly', 'formerly', 'whitefly', 'foreplay', 'fivefold', 'horsefly', 'firehall', 'irefully', 'fiercely', 'directly', 'firstly', 'forcedly', 'fireball', 'fixedly', 'forefelt', 'firefang']
+diag_score = 2
+off_diag_score = 1
+dash_score = -1
 
-10: set(['frozenly', 'unfairly', 'formerly', 'ireful', 'firehall', 'refly', 'facilely', 'directly', 'fidelity', 'dirgeful', 'firmly', 'fireplug', 'felinely', 'forkedly', 'firelock', 'fitfully', 'fivefold', 'futilely', 'virelays', 'affinely', 'direly', 'fireless', 'forcedly', 'liefly', 'fixedly', 'friendly', 'tiredly', 'fairly', 'whitefly', 'freakily', 'foreplay', 'reflexly', 'virilely', 'forefeel', 'reflying', 'horsefly', 'frenzily', 'forefelt', 'finitely', 'impurely', 'greenfly', 'freely', 'forceful', 'infirmly', 'ruefully', 'forelady', 'finely', 'firstly', 'entirely', 'fireball', 'firefang'])
-
-
-
-12: set(['tiredly', 'firstly', 'fixedly']), 14: set(['firefly']),
-
-set(['humbles', 'humbler', 'humble', 'humbled']
-[[1.6666666666666667, 'tumble'], [1.6666666666666667, 'rumble'], [1.6666666666666667, 'mumble'], [1.6666666666666667, 'jumble'], [1.6666666666666667, 'humbly'], [1.6666666666666667, 'fumble'], [1.6666666666666667, 'bumble']
+set(['tiredly', 'firstly', 'fixedly', 'fireclay'])
+set(['forebay', 'briefly', 'foreplay', 'furrily', 'whitefly', 'fireman', 'firebox', 'fifthly', 'wireway', 'firehall', 'horsefly', 'fivefold', 'fadedly', 'fishily', 'miserly', 'firemen', 'firebug', 'dirtily', 'mirkily', 'firearm', 'chiefly', 'fireplug', 'firefang', 'forkedly', 'direful', 'virelay', 'directly', 'formerly', 'firedog', 'forefelt', 'fierily', 'finally', 'fiercely', 'firepan', 'fleetly', 'forcedly', 'fireball', 'vixenly', 'virally', 'filmily'])

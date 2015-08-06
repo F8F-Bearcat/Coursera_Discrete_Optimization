@@ -41,7 +41,7 @@ word_list.sort()
 
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 diag_score = 2
-off_diag_score = -1
+off_diag_score = 0
 dash_score = 0
 
 score_matrix = BSM.build_scoring_matrix(alpha, diag_score, off_diag_score, dash_score)
@@ -68,7 +68,7 @@ for check_word in word_set_len:
     old_set = score_keys_words_values[result_tuple[0]]
     old_set |= set([check_word])
     score_keys_words_values[result_tuple[0]] = old_set
-'''
+
 word_set_len = word_dict[len(word)-2]
 
 for check_word in word_set_len:
@@ -77,7 +77,7 @@ for check_word in word_set_len:
     old_set = score_keys_words_values[result_tuple[0]]
     old_set |= set([check_word])
     score_keys_words_values[result_tuple[0]] = old_set
-'''
+
 word_set_len = word_dict[len(word)+1]
 
 for check_word in word_set_len:
