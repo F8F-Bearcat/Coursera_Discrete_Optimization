@@ -14,7 +14,7 @@ def score_alignment_a(seq_x, seq_y, scoring_matrix):
     for char_index in range(len(seq_x)):
         sum += scoring_matrix[seq_x[char_index]][seq_y[char_index]]
     return sum
-
+'''
 ua = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
 url = 'http://storage.googleapis.com/codeskulptor-assets/assets_scrabble_words3.txt'
 my_headers = {'User-Agent': ua,'Accept-Language':'en-US,en;q=0.8','Referer':'https://www.google.com','Connection':'keep-alive','Accept': '*.*', 'Accept-Encoding':'gzip, deflate, sdch'}
@@ -38,7 +38,7 @@ for item in word_dict:
 
 word_list.sort()
 #print word_list
-
+'''
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 diag_score = 2
 off_diag_score = 0
@@ -52,8 +52,16 @@ for initialize in range(-1, 17):
     score_keys_words_values[initialize] = set([])
 
 word = 'humble'
-word_set_len = word_dict[len(word)]
+word_set_len = set(['bumble', 'grumble', 'bumbled', 'tumble', 'thumbed', 'humbly', 'mumbled', 'rumble', 'bumbler', 'scumble', 'fumbled', 'jumble', 'crumble', 'mumble', 'stumble', 'tumbled', 'bumbles', 'rumbled', 'jumbler', 'drumble', 'jumbles', 'fumbler', 'fumbles', 'shamble', 'rumbler', 'rumbles', 'thimble', 'umbeled', 'fumble', 'tumbler', 'tumbles', 'mumbles', 'mumbler', 'jumbled', 'numbles'])
+normalized_score = []
+for ele in word_set_len:
+    normalized_score.append([10./len(ele), ele])
 
+normalized_score.sort(reverse=True)
+print normalized_score
+
+#word_set_len = word_dict[len(word)]
+'''
 for check_word in word_set_len:
     result = score_alignment_a(word, check_word, score_matrix)
     old_set = score_keys_words_values[result]
@@ -68,7 +76,7 @@ for check_word in word_set_len:
     old_set = score_keys_words_values[result_tuple[0]]
     old_set |= set([check_word])
     score_keys_words_values[result_tuple[0]] = old_set
-'''
+
 word_set_len = word_dict[len(word)-2]
 
 for check_word in word_set_len:
@@ -77,7 +85,7 @@ for check_word in word_set_len:
     old_set = score_keys_words_values[result_tuple[0]]
     old_set |= set([check_word])
     score_keys_words_values[result_tuple[0]] = old_set
-'''
+
 word_set_len = word_dict[len(word)+1]
 
 for check_word in word_set_len:
@@ -91,7 +99,7 @@ print score_keys_words_values
 print ' '
 print ' '
 print ' '
-'''
+
 score_keys_words_values = {}
 for initialize in range(-9, 17):
     score_keys_words_values[initialize] = set([])
