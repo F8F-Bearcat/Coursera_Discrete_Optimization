@@ -1,6 +1,7 @@
 '''
 Module comments
 '''
+
 def score_alignment(seq_x, seq_y, scoring_matrix):
     '''
     Inputs:
@@ -14,6 +15,7 @@ def score_alignment(seq_x, seq_y, scoring_matrix):
         score += scoring_matrix[seq_x[pointer]][seq_y[pointer]]
 
     return score
+
 
 def compute_local_alignment(seq_x, seq_y, score_m, align_m):
     '''
