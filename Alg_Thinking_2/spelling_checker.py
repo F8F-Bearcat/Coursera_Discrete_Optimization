@@ -41,17 +41,17 @@ word_list.sort()
 
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 diag_score = 2
-off_diag_score = 0
+off_diag_score = -1
 dash_score = 0
 
 score_matrix = BSM.build_scoring_matrix(alpha, diag_score, off_diag_score, dash_score)
 #print score_matrix
 
 score_keys_words_values = {}
-for initialize in range(-1, 17):
+for initialize in range(-10, 17):
     score_keys_words_values[initialize] = set([])
 
-word = 'humble'
+word = 'firefly'
 word_set_len = word_dict[len(word)]
 
 for check_word in word_set_len:
@@ -87,7 +87,11 @@ for check_word in word_set_len:
     old_set |= set([check_word])
     score_keys_words_values[result_tuple[0]] = old_set
 
-print score_keys_words_values
+print score_keys_words_values[12]
+print score_keys_words_values[11]
+print score_keys_words_values[10]
+print score_keys_words_values[9]
+print score_keys_words_values[8]
 print ' '
 print ' '
 print ' '
