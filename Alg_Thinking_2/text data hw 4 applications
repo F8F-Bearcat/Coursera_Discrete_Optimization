@@ -12,3 +12,17 @@ dash_score = -1
 
 set(['tiredly', 'firstly', 'fixedly', 'fireclay'])
 set(['forebay', 'briefly', 'foreplay', 'furrily', 'whitefly', 'fireman', 'firebox', 'fifthly', 'wireway', 'firehall', 'horsefly', 'fivefold', 'fadedly', 'fishily', 'miserly', 'firemen', 'firebug', 'dirtily', 'mirkily', 'firearm', 'chiefly', 'fireplug', 'firefang', 'forkedly', 'direful', 'virelay', 'directly', 'formerly', 'firedog', 'forefelt', 'fierily', 'finally', 'fiercely', 'firepan', 'fleetly', 'forcedly', 'fireball', 'vixenly', 'virally', 'filmily'])
+
+diag_score = 2
+off_diag_score = 0
+dash_score = 0
+
+set(['irefully', 'fiercely', 'fireclay'])
+set([])
+set(['frozenly', 'unfairly', 'formerly', 'ireful', 'firehall', 'refly', 'facilely', 'directly', 'fidelity', 'dirgeful', 'firmly', 'fireplug', 'felinely', 'forkedly', 'firelock', 'fitfully', 'fivefold', 'futilely', 'virelays', 'affinely', 'direly', 'fireless', 'forcedly', 'liefly', 'fixedly', 'friendly', 'tiredly', 'fairly', 'whitefly', 'freakily', 'foreplay', 'reflexly', 'virilely', 'forefeel', 'reflying', 'horsefly', 'frenzily', 'forefelt', 'finitely', 'impurely', 'greenfly', 'freely', 'forceful', 'infirmly', 'ruefully', 'forelady', 'finely', 'firstly', 'entirely', 'fireball', 'firefang'])
+set([])
+
+
+For 'humble' the set is {'bumble', 'rumble', 'humbles', 'humbled', 'fumble', 'humbly', 'jumble', 'tumble', 'mumble', 'humbler', 'humble'}
+
+for 'firefly' the set is {'firefly', 'tiredly', 'firstly', 'fixedly', 'ireful', 'freely', 'firmly', 'direly', 'finely', 'liefly', 'refly', 'fireclay' }  
